@@ -1,0 +1,15 @@
+{
+  "name": "oil-drop-simulation",
+  "version": "1.0.0",
+  "description": "A simulation based off of Millikan's Oil Drop Experiment",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Cameron McRae",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^5.0.0",
+    "mousetrap": "^1.6.3"
+  }
+}
