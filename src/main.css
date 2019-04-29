@@ -1,0 +1,56 @@
+:root {
+  --main-p-color: #74B1BE;
+  --main-accent-color: #74B1BE;
+  --header-color: #2B2E3B;
+  --header-button-color: pink;
+}
+
+body {
+  margin: 0px !important;
+}
+
+p {
+  cursor: default;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  color: var(--main-p-color);
+}
+
+.header-bar {
+  overflow: hidden;
+  height: 28px;
+  width: 100%;
+  background-color: var(--header-color);
+}
+
+.title-wrapper {
+  margin: 0px;
+  float: left;
+  width: 50%;
+}
+
+.title-wrapper p {
+  margin: 0;
+  margin-left: 10px;
+  font-weight: 500;
+  line-height: 28px;
+}
+
+.header-buttons {
+  height: 100%;
+  display: inline-block;
+  float: right;
+}
+
+.header-button {
+  float:right;
+  height: inherit;
+  background-color: var(--main-accent-color);
+  transition: opacity 200ms cubic-bezier(.25, .1, .25, 1);
+  opacity: 0;
+  width: 28px;
+}
+
+.header-button:hover {
+  opacity: 100;
+}

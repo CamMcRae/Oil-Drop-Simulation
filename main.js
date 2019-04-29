@@ -24,7 +24,7 @@ function createWindow() {
   win.setMenu(null)
 
   win.loadURL(url.format({
-    pathname: path.join(__dirname, 'main.html'),
+    pathname: path.join(__dirname, 'src/main.html'),
     protocol: 'file:',
     slashes: true
   }))
@@ -40,6 +40,9 @@ function createWindow() {
   // allows Ctrl+W to close window
   globalShortcut.register('CommandOrControl+W', () => {
     app.quit();
+  })
+  globalShortcut.register('CommandOrControl+R', () => {
+    win.reload()
   })
 }
 
