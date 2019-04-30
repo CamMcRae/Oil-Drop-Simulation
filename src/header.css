@@ -1,11 +1,6 @@
-:root {
-  --main-p-color: #74B1BE;
-  --main-accent-color: #74B1BE;
-  --header-color: #2B2E3B;
-  --header-button-color: pink;
-}
-
 body {
+  height: 100%;
+  width: 100%;
   margin: 0px !important;
 }
 
@@ -17,6 +12,7 @@ p {
 }
 
 .header-bar {
+  /* -webkit-app-region: drag; */
   overflow: hidden;
   height: 28px;
   width: 100%;
@@ -26,7 +22,6 @@ p {
 .title-wrapper {
   margin: 0px;
   float: left;
-  width: 50%;
 }
 
 .title-wrapper p {
@@ -49,6 +44,15 @@ p {
   transition: opacity 200ms cubic-bezier(.25, .1, .25, 1);
   opacity: 0;
   width: 28px;
+}
+
+.exit.header-button {
+  background-color: #E81123;
+}
+
+/* change colour of icon in exit button */
+.exit.header-button:hover {
+  background-color: #fff;
 }
 
 .header-button:hover {
