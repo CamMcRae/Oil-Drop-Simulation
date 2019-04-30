@@ -2,7 +2,7 @@
   "name": "oil-drop-simulation",
   "version": "1.0.0",
   "description": "A simulation based off of Millikan's Oil Drop Experiment",
-  "main": "main.js",
+  "main": "electron-main.js",
   "scripts": {
     "start": "electron ."
   },

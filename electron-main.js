@@ -1,12 +1,11 @@
 const {
   app,
   BrowserWindow,
-  Menu,
-  globalShortcut
+  globalShortcut,
+  ipcMain
 } = require('electron');
 const path = require('path');
 const url = require('url');
-const Mousetrap = require('mousetrap');
 
 let win;
 
@@ -24,7 +23,7 @@ function createWindow() {
   win.setMenu(null)
 
   win.loadURL(url.format({
-    pathname: path.join(__dirname, 'src/main.html'),
+    pathname: path.join(__dirname, 'main.html'),
     protocol: 'file:',
     slashes: true
   }))
@@ -38,12 +37,9 @@ function createWindow() {
   })
 
   // allows Ctrl+W to close window
-  globalShortcut.register('CommandOrControl+W', () => {
-    app.quit();
-  })
-  globalShortcut.register('CommandOrControl+R', () => {
-    win.reload()
-  })
+  // globalShortcut.register('CommandOrControl+W', () => {
+  //   app.quit();
+  // })
 }
 
 app.on('ready', createWindow);
@@ -60,5 +56,13 @@ app.on('activate', () => {
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
+  }
+})
+
+ipcMain.on('synchronous-message', (event, arg) => {
+  switch (arg) {
+    case "close-app":
+      app.quit();
+      break;
   }
 })
