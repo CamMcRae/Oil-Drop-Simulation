@@ -6,6 +6,7 @@ const {
 } = require('electron');
 const path = require('path');
 const url = require('url');
+const fs = require('fs');
 
 let win;
 
@@ -13,6 +14,8 @@ function createWindow() {
   win = new BrowserWindow({
     width: 800,
     height: 600,
+    minWidth: 800,
+    minHeight: 600,
     icon: __dirname + "/assets/icon.png",
     webPreferences: {
       nodeIntegration: true
@@ -23,7 +26,7 @@ function createWindow() {
   win.setMenu(null)
 
   win.loadURL(url.format({
-    pathname: path.join(__dirname, 'main.html'),
+    pathname: path.join(__dirname, 'src/main.html'),
     protocol: 'file:',
     slashes: true
   }))
@@ -59,10 +62,29 @@ app.on('window-all-closed', () => {
   }
 })
 
-ipcMain.on('synchronous-message', (event, arg) => {
+ipcMain.on('app-message', (event, arg) => {
   switch (arg) {
     case "close-app":
       app.quit();
       break;
+    case "reload-app":
+      app.relaunch();
+      app.exit();
+      break;
+    case "minimize-app":
+      BrowserWindow.getFocusedWindow().minimize()
+      break;
+    case "maximize-app":
+      let w = BrowserWindow.getFocusedWindow()
+      if (w.isMaximized()) {
+        w.unmaximize()
+      } else {
+        w.maximize()
+      }
+      break;
   }
-})
+});
+
+ipcMain.on('file-output', (event, arg) => {
+
+});

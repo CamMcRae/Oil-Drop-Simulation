@@ -15,21 +15,40 @@ p {
   z-index: 5000;
   -webkit-app-region: drag;
   overflow: hidden;
-  height: 28px;
+  height: var(--header-height);
   width: 100%;
   background-color: var(--header-color);
 }
 
+.hidden {
+  display: none;
+}
+
+.header-icon {
+  float:left;
+  max-width: calc(var(--header-height) * 0.7);
+  max-height: calc(var(--header-height) * 0.7);
+  margin: calc(var(--header-height) * 0.15);
+  margin-right: 0;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-clip: content-box;
+  /* background-color: #fff; */
+  background-image: url("../assets/1.ico");
+  background-repeat:no-repeat;
+}
+
 .title-wrapper {
   margin: 0px;
-  margin-left: 10px;
   float: left;
+  margin-left: 10px;
 }
 
 .title-wrapper p {
   margin: 0;
   font-weight: 500;
-  line-height: 28px;
+  line-height: var(--header-height);
 }
 
 .header-buttons {
@@ -44,7 +63,7 @@ p {
   height: inherit;
   background-color: var(--header-color);
   transition: background-color 200ms cubic-bezier(.25, .1, .25, 1);
-  width: 28px;
+  width: var(--header-height);
   cursor: pointer;
   display: flex;
 }

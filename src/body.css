@@ -1,6 +1,21 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
 .main-body-wrapper {
-  position:absolute;
-  height:100%;
-  width: 100%;
+  position: absolute;
+  display: block;
+  top: 28px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: auto;
+  padding: 2.5vw;
   background-color: var(--main-body-color);
 }
