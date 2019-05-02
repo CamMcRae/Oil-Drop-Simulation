@@ -2,7 +2,8 @@ const {
   app,
   BrowserWindow,
   globalShortcut,
-  ipcMain
+  ipcMain,
+  dialog
 } = require('electron');
 const path = require('path');
 const url = require('url');
@@ -62,6 +63,7 @@ app.on('window-all-closed', () => {
   }
 })
 
+// events that deal with the window
 ipcMain.on('app-message', (event, arg) => {
   switch (arg) {
     case "close-app":
@@ -85,6 +87,40 @@ ipcMain.on('app-message', (event, arg) => {
   }
 });
 
+// attempts to save a file
 ipcMain.on('file-output', (event, arg) => {
+  console.log("DSAD")
+  dialog.showSaveDialog({
+    defaultPath: '~/millikanData.csv',
+    filters: [{
+      name: 'CSV files',
+      extensions: ['csv']
+    }, {
+      name: 'All Files',
+      extensions: ['*']
+    }]
+  }, (filename, err) => {
+    if (filename == undefined) return
+    if (err) {
+      dialog.showMessageBox({
+        type: "error",
+        title: "An Unknown Error has occured.",
+        message: err
+      });
+      event.reply('file-save-status', 'error')
+    }
 
+    fs.writeFile(filename, arg, (err) => {
+      if (err) {
+        event.reply('file-save-status', 'error')
+        dialog.showMessageBox({
+          type: "error",
+          title: "There was an error saving the file.",
+          message: err
+        });
+      } else {
+        event.reply('file-save-status', 'success')
+      }
+    });
+  });
 });

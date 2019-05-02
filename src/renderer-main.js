@@ -14,6 +14,10 @@ Mousetrap.bind(["command+r", "ctrl+r"], () => {
   sendIPC('app-message', 'reload-app')
 })
 
+Mousetrap.bind(["command+s", 'ctrl+s'], () => {
+  sendIPC('file-output', '00, 01, 02\n10,11,12')
+});
+
 $(".exit").on('click', () => {
   sendIPC('app-message', 'close-app')
 })
@@ -29,3 +33,8 @@ $(".maximize").on('click', () => {
 function sendIPC(callID, arg) {
   ipcRenderer.send(callID, arg)
 }
+
+// when a save attempt has been completed the status is returned to update html
+ipcRenderer.on('file-save-status', (event, arg) => {
+  // send to simulation
+});
