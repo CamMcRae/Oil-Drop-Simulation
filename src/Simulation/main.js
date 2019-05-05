@@ -1,13 +1,16 @@
-let simulation;
+const sync = require('framesync');
+const constants = require('./constants.json');
+const sim = require('./simulation.js');
 
 module.exports.run = () => {
 
-  function setup() {
-    console.log("ASDA")
-    simulation = new Simulation();
-  }
+  let simulation = new sim();
 
-  function draw() {
-    simulation.update()
-  }
-}
+  sync.default.update(({
+    delta,
+    timestamp
+  }) => {
+    const deltaTime = delta;
+    simulation.update();
+  });
+};

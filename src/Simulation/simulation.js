@@ -1,8 +1,12 @@
-class simulation {
-  constructor(_gfs) {
-    this.gfs = _gfs;
+const constants = require('./constants.json');
+const Timer = require('./time.js')
+const Droplet = require('./droplet.js');
+
+class Simulation {
+  constructor() {
+    this.gfs = constants.gravity;
     this.efs = 0;
-    this.pAir = 0.0000181;
+    this.pAir = constants.permeabilityAir;
     this.time = new Timer();
 
     this.drop = new Droplet();
@@ -17,3 +21,5 @@ class simulation {
 
   }
 }
+
+module.exports = Simulation;
