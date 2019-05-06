@@ -1,35 +1,24 @@
 class Timer {
-  constructor(_s, _v) {
-    this.start = Date.now();
-    this.total = 0;
+  constructor(_s) {
     this.speed = _s || 1;
-    this.visible = _v || false;
-    this.deltaTime = 0;
-    this.previousTime = this.start;
+    this.reset();
   }
 
-  show() {
-    if (this.visible) {
-      fill(255);
-      noStroke();
-      textAlign(LEFT, TOP);
-      textSize(24);
-      text(this.deltaTime, 5, 5);
+  update(_t) {
+    this.deltaTime = _t.deltaTime;
+    if (!this.paused) {
+      this.total += this.deltaTime * this.speed
     }
   }
 
-  update() {
-    this.total += this.deltaTime * this.speed
-    let t = Date.now();
-    this.deltaTime = t - this.previousTime;
-    this.previousTime = t;
-  }
-
   reset() {
+    this.paused = false;
     this.start = Date.now();
     this.total = 0;
-    this.deltaTime = 0;
-    this.previousTime - this.start;
+  }
+
+  getTotal() {
+    console.log(this.total);
   }
 }
 

@@ -4,21 +4,49 @@ const Droplet = require('./droplet.js');
 
 class Simulation {
   constructor() {
-    this.gfs = constants.gravity;
-    this.efs = 0;
+    this.timestep = 1;
+    this.gField = constants.gravity;
+    this.eField = {
+      enabled: false,
+      reverse: false,
+      magnitude: 0
+    };
     this.pAir = constants.permeabilityAir;
     this.time = new Timer();
-
-    this.drop = new Droplet();
+    this.spawnDrop();
   }
 
-  update() {
-    this.time.update();
+  update(time) {
+    this.time.update(time);
+    if (this.droplet) {
+      this.droplet.update(this, time);
+    }
     this.show();
   }
 
   show() {
 
+  }
+
+  spawnDrop() {
+    this.droplet = new Droplet();
+    this.time.reset();
+  }
+
+  test() {
+    this.time.getTotal();
+  }
+
+  toggleSim() {
+    if (this.eField.enabled) { // disable field and let droplet fall
+      this.time.reset()
+      this.droplet.trialStart = this.droplet.pos;
+    } else { // end trial
+      this.droplet.trialEnd = this.droplet.pos;
+      let distance = this.droplet.trialEnd - this.droplet.trialStart
+      new Trial(this.droplet, this.eField.magnitude, this.time.getTotal() / 1000, distance);
+    }
+    this.eField.enabled = !this.eField.enabled;
   }
 }
 
