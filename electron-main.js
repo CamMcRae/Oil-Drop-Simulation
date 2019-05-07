@@ -8,6 +8,7 @@ const {
 const path = require('path');
 const url = require('url');
 const fs = require('fs');
+require('electron-reload')(__dirname);
 
 let win;
 

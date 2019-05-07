@@ -3,18 +3,19 @@ const constants = require('./constants.json');
 const sim = require('./simulation.js');
 const Mousetrap = require('mousetrap');
 
+let simulation;
 
 module.exports.run = () => {
 
-  let simulation = new sim();
+  simulation = new sim();
 
   // maybe get a list of all trials from a json stored publically
 
   Mousetrap.bind(["space"], () => {
     // simulation.test();
-    simulation.toggleSim();
+    // simulation.toggleSim();
   });
-  let t;
+
   sync.default.update(({
     delta,
     timestamp
@@ -26,3 +27,13 @@ module.exports.run = () => {
     simulation.update(time);
   }, true);
 };
+
+module.exports.getSeparation = () => {
+  if (simulation) {
+    return simulation.separation;
+  }
+}
+
+module.exports.setSeparation = (_v) => {
+  if (simulation) simulation.separation = _v;
+}

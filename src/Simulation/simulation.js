@@ -11,6 +11,7 @@ class Simulation {
       reverse: false,
       magnitude: 0
     };
+    this.separation = constants.defaultSeparation;
     this.pAir = constants.permeabilityAir;
     this.time = new Timer();
     this.spawnDrop();

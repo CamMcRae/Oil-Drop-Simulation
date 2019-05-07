@@ -1,5 +1,6 @@
 {
   "gravity": 9.80665,
   "permeabilityAir" :0.0000181,
-  "densityOil": 925
+  "densityOil": 925,
+  "defaultSeparation": 0.0025
 }
