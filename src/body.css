@@ -19,15 +19,3 @@ body {
   padding: 22px;
   background-color: var(--main-body-color);
 }
-
-.left-pane {
-  height: 100%;
-  width: 100%;
-}
-
-.main-sim-window {
-  width: 100%;
-  height: calc(100% - 50px - 22px);
-  background-color: #fff;
-  margin-bottom: 22px;
-}

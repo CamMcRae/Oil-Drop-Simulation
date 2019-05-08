@@ -2,6 +2,7 @@ const sync = require('framesync');
 const constants = require('./constants.json');
 const sim = require('./simulation.js');
 const Mousetrap = require('mousetrap');
+const math = require('mathjs');
 
 let simulation;
 
@@ -29,11 +30,15 @@ module.exports.run = () => {
 };
 
 module.exports.getSeparation = () => {
-  if (simulation) {
-    return simulation.separation;
-  }
+  if (simulation) return simulation.separation;
 }
 
 module.exports.setSeparation = (_v) => {
   if (simulation) simulation.separation = _v;
+}
+
+module.exports.changeSeparation = (step) => {
+  if (simulation) {
+    simulation.separation = math.round(math.add(simulation.separation, step), 3);
+  }
 }

@@ -1,0 +1,7 @@
+.right-pane {
+  display: inline-flex;
+  /* background: white; */
+  width: 50%;
+  height: 100%;
+  /* right: 0; */
+}

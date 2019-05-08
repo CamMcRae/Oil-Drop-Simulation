@@ -1,0 +1,65 @@
+.right-slide-pane {
+  width: 50vw;
+  height: calc(100vh - var(--header-height));
+  position: absolute;
+  top: 0;
+  left: 100vw;
+  transform: translateX(0);
+  background-color: var(--body-color);
+  transition: all 200ms cubic-bezier(.25, .1, .25, 1);
+}
+
+.right-slide-pane.expand {
+  transform: translateX(-50vw);
+}
+
+.right-slide-toggle-wrapper {
+  border-right: 2px solid var(--container-color);
+  position: absolute;
+  height: 100%;
+  background-color: var(--body-color-transparent);
+  right: 100%;
+  transition: all 200ms cubic-bezier(.25, .1, .25, 1);
+}
+
+.right-slide-toggle {
+  top: 0;
+  right: 0;
+  width: 3em;
+  height: 3em;
+  background-color: var(--container-color);
+  opacity: 1;
+  transition: all 200ms cubic-bezier(.25, .1, .25, 1);
+}
+
+.right-slide-pane:hover .right-slide-toggle, right-slide-pane.expand right-slide-toggle {
+  width: 6em;
+  height: 6em;
+  opacity: 1;
+}
+
+.right-slide-pane:hover .right-slide-toggle-wrapper, right-slide-pane.expand right-slide-toggle-wrapper {
+  background-color: var(--body-color)
+}
+
+.right-slide-toggle .table-wrapper {
+  height: 40%;
+  padding: 30%;
+}
+
+.right-slide-toggle table {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(1,1);
+  transition: all 200ms cubic-bezier(.25, .1, .25, 1);
+}
+
+.right-slide-toggle:hover table {
+  transform: scale(1.2,1.2);
+}
+
+.right-slide-toggle td {
+  background-color: #fff;
+}

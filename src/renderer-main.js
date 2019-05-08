@@ -4,9 +4,14 @@ const {
 const Mousetrap = require('mousetrap');
 const $ = require('jquery');
 const constants = require('./simulation/constants.json');
+const math = require('mathjs');
 
 let sim = require("./Simulation/main.js");
 sim.run();
+
+Mousetrap.bind(["ctrl+l"], () => {
+  $('.right-slide-pane').toggleClass('expand');
+});
 
 Mousetrap.bind(["command+w", "ctrl+w"], () => {
   sendIPC('app-message', 'close-app')
@@ -58,10 +63,36 @@ $('span.dynamic').on('blur', (_e) => {
   $(e).attr('contentEditable', false);
   let c = $(e).text();
 
+
   let v = sim.getSeparation();
   if (isNaN(c) || c == "") {
     $(e).text(v);
   } else {
+    c = math.round(parseFloat(c), 3);
     sim.setSeparation(c);
+    $(e).text(c);
   }
+});
+
+$('span.dynamic').on('keypress', (e) => {
+  if (e.which == 13) $('span.dynamic').trigger('blur');
+})
+
+$('.plate-input-selector-wrapper .arrow').on('click', (_e) => {
+  let e = $(_e.target);
+  if (e.hasClass('editing')) return;
+  if (e.hasClass('right')) {
+    // increase distance
+    sim.changeSeparation(+0.001);
+  } else {
+    // decrease distance
+    sim.changeSeparation(-0.001);
+  }
+  let v = sim.getSeparation();
+  if (math.mod(v, 0.01) == 0) v = v.toString() + "0";
+  $('span.dynamic.plate-input-wrapper').text(v);
+});
+
+$('.right-slide-toggle').on('click', () => {
+  $('.right-slide-pane').toggleClass('expand');
 });

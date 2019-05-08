@@ -7,4 +7,14 @@
   --main-body-color-dark: #fff;
   --header-exit-color: #E81123;
   --header-height: 28px;
+  /**/
+  --accent-color-1: #1B6DE0;
+  --accent-color-2: #079954;
+  --accent-color-3: #DB7C00;
+  --accent-color-4: #E54937;
+  /**/
+  --body-color: #141414;
+  --body-color-transparent: #14141400;
+  --container-color: #1F1F1F;
+  --text-color: #fff;
 }

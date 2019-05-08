@@ -1,0 +1,73 @@
+.left-pane {
+  display: inline-block;
+  height: 100%;
+  width: 40%;
+  margin-right: 22px;
+}
+
+.main-sim-window {
+  width: 100%;
+  height: calc(100% - 30px - 22px);
+  background-color: #fff;
+  margin-bottom: 22px;
+}
+
+.plate-dist {
+  height: 30px;
+  text-align: center;
+}
+
+.plate-input-selector-wrapper>* {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.plate-input-wrapper {
+  height: 24px;
+  display: inline-block;
+  line-height: 24px;
+  font-family: 'Roboto';
+  font-size: 24px;
+  outline: none;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-touch-callout:none;
+  cursor:text;
+}
+
+.plate-input-wrapper.editing {
+  border-bottom: 2px solid #fff;
+}
+
+.plate-input-selector-wrapper>.arrow {
+  margin-top: -3px;
+  font-stretch:ultra-condensed;
+  cursor: pointer;
+  font-size: 28px;
+  font-family: Roboto;
+  color: #fff;
+  transform: scale(1.1);
+  transition: transform 200ms cubic-bezier(.25, .1, .25, 1);
+}
+
+.plate-input-selector-wrapper>.arrow:hover {
+  transform: scale(1.3);
+}
+
+.plate-input-selector-wrapper>.arrow.left {
+  padding: 0px 10px;
+}
+
+.plate-input-selector-wrapper>.arrow.right {
+  padding: 0px 10px;
+}
+
+.plate-input-selector-wrapper>.arrow.right:active {
+  transform: translateX(10px);
+}
+
+.plate-input-selector-wrapper>.arrow.left:active {
+  transform: translateX(-10px);
+}

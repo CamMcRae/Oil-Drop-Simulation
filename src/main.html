@@ -6,7 +6,9 @@
   <link rel="stylesheet" type="text/css" href="./vars.css">
   <link rel="stylesheet" type="text/css" href="./header.css">
   <link rel="stylesheet" type="text/css" href="./body.css">
-  <link rel="stylesheet" type="text/css" href="./plateDistanceInput.css">
+  <link rel="stylesheet" type="text/css" href="./leftPane.css">
+  <link rel="stylesheet" type="text/css" href="./rightPane.css">
+  <link rel="stylesheet" type="text/css" href="./rightSlidePane.css">
 </head>
 
 <body>
@@ -42,17 +44,51 @@
       </div>
       <div class="plate-dist">
         <div class="plate-input-selector-wrapper">
-          <div class="left arrow"></div>
-          <span class="plate-input-wrapper dynamic">
+          <div class="left arrow" onselectstart="return false">
+            <</div>
+              <span class="plate-input-wrapper dynamic" onselectstart="return false">
           </span>
-          <div class="right arrow"></div>
+              <div class="right arrow" onselectstart="return false">></div>
+          </div>
+        </div>
+      </div>
+      <div class="right-pane">
+
+      </div>
+      <div class="right-slide-pane">
+        <div class="right-slide-toggle-wrapper">
+          <div class="right-slide-toggle">
+            <div class="table-wrapper">
+              <table>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="right-slide-wrapper">
+          <div class="right-slide-content">
+
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <script type="text/javascript">
-    require('./renderer-main.js')
-  </script>
+    <script type="text/javascript">
+      require('./renderer-main.js')
+    </script>
 </body>
 
 </html>
