@@ -1,16 +1,3 @@
-body {
-  height: 100%;
-  width: 100%;
-  margin: 0px !important;
-}
-
-p {
-  cursor: default;
-  font-family: Roboto, sans-serif;
-  font-size: 14px;
-  color: var(--main-p-color);
-}
-
 .header-bar {
   z-index: 5000;
   -webkit-app-region: drag;

@@ -48,6 +48,9 @@ ipcRenderer.on('file-save-status', (event, arg) => {
 
 $(document).ready(() => {
   $('span.plate-input-wrapper.dynamic').text(constants.defaultSeparation);
+  $('#gConst.list-element .list-body')[0].innerHTML = constants.gravity;
+  $('#pConst.list-element .list-body')[0].innerHTML = constants.densityOil;
+  $('#nConst.list-element .list-body')[0].innerHTML = constants.permeabilityAir;
 });
 
 $('span.dynamic').on('click', (_e) => {

@@ -1,0 +1,35 @@
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0px !important;
+}
+
+p {
+  cursor: default;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  color: var(--main-p-color);
+}
+
+.list-element p {
+  font-size: 12px;
+  font-family: "Roboto";
+  color: #fff;
+  padding: 0;
+}
+
+.list-element p.list-title {
+  font-weight: 600;
+  margin: 0 0 5px 0;
+}
+
+.list-element p.list-body {
+  font-weight: 200;
+  display: inline;
+  white-space: nowrap;
+}
+
+.list-element {
+  white-space: nowrap;
+  margin: 0 0 20px 0;
+}
