@@ -1,5 +1,6 @@
 .right-slide-pane {
-  width: 50vw;
+  --right-slide-pane-width: 400px;
+  width: var(--right-slide-pane-width);
   height: calc(100vh - var(--header-height));
   position: absolute;
   top: 0;
@@ -10,7 +11,7 @@
 }
 
 .right-slide-pane.expand {
-  transform: translateX(-50vw);
+  transform: translateX(calc(-1 * var(--right-slide-pane-width)));
 }
 
 .right-slide-toggle-wrapper {
@@ -25,16 +26,16 @@
 .right-slide-toggle {
   top: 0;
   right: 0;
-  width: 3em;
-  height: 3em;
+  width: 4em;
+  height: 4em;
   background-color: var(--container-color);
   opacity: 1;
   transition: all 200ms cubic-bezier(.25, .1, .25, 1);
 }
 
 .right-slide-pane:hover .right-slide-toggle, .right-slide-pane.expand .right-slide-toggle {
-  width: 6em;
-  height: 6em;
+  width: 7.5em;
+  height: 7.5em;
   opacity: 1;
 }
 

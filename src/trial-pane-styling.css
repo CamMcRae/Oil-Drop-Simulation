@@ -10,13 +10,19 @@
 }
 
 .right-slide-content .trial-entry {
-  padding: 0 30px;
-  height: 50px;
+  --trial-entry-height: 70px;
+  padding: 0;
+  padding-left:  30px;
+  height: var(--trial-entry-height);
   background-color: var(--container-color-transparent);
   transition: all 200ms cubic-bezier(.25, .1, .25, 1);
 }
 .right-slide-content .trial-entry:not(:first-child) {
   border-top: 1px solid var(--container-color);
+}
+
+.right-slide-content .trial-entry:first-child) {
+  border-top: 1px solid var(--container-color-transparent);
 }
 
 .right-slide-content .trial-entry:hover {
@@ -45,4 +51,73 @@
   padding-top: 20px;
   padding-bottom: 20px;
   padding-left: 20px;
+}
+
+.trial-header-menu {
+  --trial-header-menu-height: 48px;
+  background-color: var(--container-color);
+  height: var(--trial-header-menu-height);
+  padding: 0 30px;
+}
+
+.trial-header-menu p {
+  line-height: var(--trial-header-menu-height);
+  display: inline-block;
+}
+
+.trial-header-menu p, .trial-entry p{
+  font-size: 12px;
+  color :#fff;
+  margin: 0 auto;
+  width: calc((100% - 30px) / 5);
+  text-align: center;
+}
+
+.trial-entry {
+  position: relative;
+}
+
+.trial-entry  * {
+  display: inline-block;
+  line-height: var(--trial-entry-height);
+}
+
+.trial-entry div.remove-trial-wrapper {
+  position: absolute;
+  height: var(--trial-entry-height);
+  width: var(--trial-entry-height);
+}
+
+div.remove-trial {
+  margin: calc(var(--trial-entry-height) / 4) 0;
+  width: 100%;
+  height: calc(var(--trial-entry-height) / 2);
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+
+div.remove-trial div.button {
+  position: absolute;
+  background-color: #fff;
+  height: calc(var(--trial-entry-height) / 2);
+  width: calc(var(--trial-entry-height) / 2);
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  transform: scale(1,1);
+  transition: all 200ms cubic-bezier(.25, .1, .25, 1);
+}
+
+div.remove-trial p.hover-show {
+  font-size: 12px;
+  color :#fff;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  line-height:12px;
+}
+
+div.remove-trial div.button:hover {
+  transform: scale(0,0)
 }

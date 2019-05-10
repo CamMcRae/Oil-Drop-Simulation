@@ -1,6 +1,10 @@
 {
   "gravity": 9.80665,
-  "permeabilityAir" : 0.0000181,
+  "permeabilityAir": 0.0000181,
+  "permeabilityAirSci": {
+    "str": "1.81x10",
+    "exp": -5
+  },
   "densityOil": 925,
   "defaultSeparation": 0.025,
   "defaultListHTML": ""

@@ -50,7 +50,12 @@ $(document).ready(() => {
   $('span.plate-input-wrapper.dynamic').text(constants.defaultSeparation);
   $('#gConst.list-element .list-body')[0].innerHTML = constants.gravity;
   $('#pConst.list-element .list-body')[0].innerHTML = constants.densityOil;
-  $('#nConst.list-element .list-body')[0].innerHTML = constants.permeabilityAir;
+  $('#nConst.list-element .list-body')[0].innerHTML = constants.permeabilityAirSci.str + `<sup>${constants.permeabilityAirSci.exp}</sup>`;
+  let b = $('.trial-entries .trial-entry').clone();
+  for (let i = 0; i < 10; i++) {
+    $('.trial-entries').append(b.clone());
+  }
+  updateTrialList();
 });
 
 $('span.dynamic').on('click', (_e) => {
@@ -99,3 +104,16 @@ $('.plate-input-selector-wrapper .arrow').on('click', (_e) => {
 $('.right-slide-toggle').on('click', () => {
   $('.right-slide-pane').toggleClass('expand');
 });
+
+$('.remove-trial').on('click', (_e) => {
+  let e = $(_e.target);
+});
+
+function updateTrialList() {
+  let l = $('.trial-entries').children;
+  for (let i = 0; i < l.length; i++) {
+    let t = $(l[i]).find(".trial-number");
+    console.log(t)
+    t.innerHTML = i + 1;
+  }
+}
