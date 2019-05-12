@@ -9,7 +9,7 @@
   "author": "Cameron McRae",
   "license": "MIT",
   "dependencies": {
-    "electron": "^5.0.0",
+    "electron": "^5.0.1",
     "electron-reload": "^1.4.0",
     "framesync": "^4.0.2",
     "jquery": "^3.4.0",

@@ -105,9 +105,18 @@ $('.right-slide-toggle').on('click', () => {
   $('.right-slide-pane').toggleClass('expand');
 });
 
-$('.remove-trial').on('click', (_e) => {
-  let e = $(_e.target);
+$(document).on('click', '.remove-trial', (_e) => {
+  let e = $(_e.target).parents('.trial-entry');
+  e.addClass('slide-remove');
+  $(e).on('transitionend webkitTransitionEnd oTransitionEnd', () => {
+    e.remove();
+  });
 });
+
+
+// $(".inner").hover(() => {
+//   $(".outer").toggleClass("foo");
+// });
 
 function updateTrialList() {
   let l = $('.trial-entries').children;

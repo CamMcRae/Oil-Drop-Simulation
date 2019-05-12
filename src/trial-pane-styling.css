@@ -10,19 +10,22 @@
 }
 
 .right-slide-content .trial-entry {
+  cursor: default;
   --trial-entry-height: 70px;
+  position: relative;
   padding: 0;
-  padding-left:  30px;
+  padding-left: 30px;
   height: var(--trial-entry-height);
-  background-color: var(--container-color-transparent);
+  background-color: var(--body-color);
   transition: all 200ms cubic-bezier(.25, .1, .25, 1);
 }
+
 .right-slide-content .trial-entry:not(:first-child) {
   border-top: 1px solid var(--container-color);
 }
 
-.right-slide-content .trial-entry:first-child) {
-  border-top: 1px solid var(--container-color-transparent);
+.right-slide-content .trial-entry:hover:last-child {
+  border-bottom: 1px solid var(--body-color);
 }
 
 .right-slide-content .trial-entry:hover {
@@ -30,11 +33,12 @@
 }
 
 .trial-entries {
-  margin-right:1px;
+  margin-right: 1px;
   width: calc(100%-1px);
   height: 70%;
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: var(--container-color);
 }
 
 .trial-footer-wrapper {
@@ -58,6 +62,7 @@
   background-color: var(--container-color);
   height: var(--trial-header-menu-height);
   padding: 0 30px;
+  /* border-bottom: 1px solid var(--body-color); */
 }
 
 .trial-header-menu p {
@@ -65,19 +70,19 @@
   display: inline-block;
 }
 
-.trial-header-menu p, .trial-entry p{
+.trial-header-menu p, .trial-entry p {
   font-size: 12px;
-  color :#fff;
+  color: #fff;
   margin: 0 auto;
   width: calc((100% - 30px) / 5);
   text-align: center;
 }
 
-.trial-entry {
-  position: relative;
+.trial-entry.slide-remove {
+  transform: translateX(100%);
 }
 
-.trial-entry  * {
+.trial-entry * {
   display: inline-block;
   line-height: var(--trial-entry-height);
 }
@@ -89,35 +94,61 @@
 }
 
 div.remove-trial {
-  margin: calc(var(--trial-entry-height) / 4) 0;
+  margin: calc(var(--trial-entry-height) *1/6) 0;
   width: 100%;
-  height: calc(var(--trial-entry-height) / 2);
+  height: calc(var(--trial-entry-height) *2/3);
   overflow: hidden;
   position: relative;
   text-align: center;
+  cursor: pointer;
 }
 
-div.remove-trial div.button {
+div.remove-trial div.button-wrapper {
   position: absolute;
-  background-color: #fff;
-  height: calc(var(--trial-entry-height) / 2);
+  /* background-color: #fff; */
+  height: 100%;
   width: calc(var(--trial-entry-height) / 2);
   margin: 0 auto;
   left: 0;
   right: 0;
-  transform: scale(1,1);
-  transition: all 200ms cubic-bezier(.25, .1, .25, 1);
 }
 
 div.remove-trial p.hover-show {
+  position: relative;
+  display: inline-block;
   font-size: 12px;
-  color :#fff;
+  color: #fff;
   margin: 0 auto;
   text-align: center;
   width: 100%;
-  line-height:12px;
+  line-height: 12px;
+  transform: translateY(200%);
+  transition: all 200ms cubic-bezier(.25, .1, .25, 1);
 }
 
-div.remove-trial div.button:hover {
-  transform: scale(0,0)
+div.remove-trial:hover p.hover-show {
+  transform: translateY(-20%);
+}
+
+div.remove-trial div.button-wrapper div.button {
+  background-color: #ffffff00;
+  -webkit-mask-image: url('../assets/x-button.svg');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 40%;
+  -webkit-mask-position: center;
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: scale(1, 1);
+  transition: all 200ms cubic-bezier(.25, .1, .25, 1);
+}
+
+.trial-entry:hover div.button-wrapper div.button {
+  background-color: #fff;
+}
+
+div.remove-trial:hover div.button-wrapper div.button {
+  transform: scale(.8, .8) translateY(-30%);
+  background-color: var(--accent-color-4);
 }
