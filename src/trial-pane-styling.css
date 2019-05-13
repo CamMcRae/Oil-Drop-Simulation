@@ -1,27 +1,98 @@
-.right-slide-content>p.trial-header {
+.trial-pane-header-wrapper {
+  background-color: var(--body-color);
+  flex-flow: row;
+  display: flex;
+  --trial-pane-header-height: 72px;
+  height: var(--trial-pane-header-height);
+}
+
+.trial-pane-header-wrapper>* {
+  display: inline-block;
+}
+
+.trial-pane-header-wrapper>p {
   font-size: 32px;
   line-height: 32px;
   color: #fff;
   font-weight: 600;
-  margin: 0;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  margin: 20px;
+  float: left;
+}
+
+.export-trials-content-wrapper {
+  flex-grow: 1;
+  position: relative;
+  direction: rtl;
+  position: relative;
+}
+
+.export-trials-content-wrapper>* {
+  display: inline-block;
+}
+
+.export-trials-content-wrapper .text-wrapper {
+  position: absolute;
   padding-left: 20px;
+  height: 100%;
+}
+
+.export-trials-content-wrapper .text-wrapper>p {
+  transform: translateX(10px);
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 400;
+  margin: 0;
+  line-height: var(--trial-pane-header-height);
+  text-align: center;
+}
+
+.export-button-wrapper {
+  height: var(--trial-pane-header-height);
+  width: var(--trial-pane-header-height);
+  margin-right: 20px;
+}
+
+.export-button-wrapper>.export-button {
+  cursor: pointer;
+  margin: calc(var(--trial-pane-header-height) * 0.25);
+  height: calc(var(--trial-pane-header-height) * 0.5);
+  border-radius: 8px;
+  transition: all 200ms cubic-bezier(.25, .1, .25, 1);
+}
+
+/* .export-button-wrapper>.export-button:hover {
+  background-color: var(--main-accent-color);
+} */
+
+.export-button-wrapper>.export-button>.export-icon {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  -webkit-mask-image: url('../assets/download-button.svg');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 60%;
+  -webkit-mask-position: center;
+  transform: translateY(-3px);
+  transition: all 200ms cubic-bezier(.25, .1, .25, 1);
+}
+
+.export-button-wrapper>.export-button:hover>.export-icon {
+  background-color: var(--main-accent-color);
+  transform: translateY(0px);
 }
 
 .right-slide-content .trial-entry {
   cursor: default;
-  --trial-entry-height: 70px;
   position: relative;
   padding: 0;
   padding-left: 30px;
   height: var(--trial-entry-height);
   background-color: var(--body-color);
-  transition: all 200ms cubic-bezier(.25, .1, .25, 1);
+  transition: all 500ms cubic-bezier(.25, .1, .25, 1);
 }
 
-.right-slide-content .trial-entry:not(:first-child) {
-  border-top: 1px solid var(--container-color);
+.trial-entry.defaultConstructor {
+  display: none;
 }
 
 .right-slide-content .trial-entry:hover:last-child {
@@ -32,18 +103,37 @@
   background-color: var(--container-color);
 }
 
+.trial-entry.slide-remove {
+  animation: remove-trial 400ms ease-in-out forwards;
+}
+
+@keyframes remove-trial {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(100%);
+    height: var(--trial-entry-height);
+  }
+  100% {
+    transform: translateX(100%);
+    height: 0;
+  }
+}
+
 .trial-entries {
   margin-right: 1px;
   width: calc(100%-1px);
-  height: 70%;
+  /* height: calc(var(--trial-entry-height) * 6); */
   overflow-y: auto;
   overflow-x: hidden;
   background-color: var(--container-color);
 }
 
 .trial-footer-wrapper {
-  height: 30%;
-  margin-bottom: 20px;
+  display: none;
+  background-color: var(--container-color);
+  flex-grow: 1;
 }
 
 .trial-footer p.trial-export {
@@ -61,8 +151,8 @@
   --trial-header-menu-height: 48px;
   background-color: var(--container-color);
   height: var(--trial-header-menu-height);
-  padding: 0 30px;
-  /* border-bottom: 1px solid var(--body-color); */
+  padding: 0 0 0 30px;
+  border-bottom: 1px solid var(--body-color);
 }
 
 .trial-header-menu p {
@@ -78,8 +168,9 @@
   text-align: center;
 }
 
-.trial-entry.slide-remove {
-  transform: translateX(100%);
+.trial-entry p.number {
+  font-weight: 800;
+  color: var(--main-accent-color);
 }
 
 .trial-entry * {
@@ -105,7 +196,6 @@ div.remove-trial {
 
 div.remove-trial div.button-wrapper {
   position: absolute;
-  /* background-color: #fff; */
   height: 100%;
   width: calc(var(--trial-entry-height) / 2);
   margin: 0 auto;

@@ -5,17 +5,26 @@
   --main-body-color: #24292E;
   --main-p-color-dark: #24292E;
   --main-body-color-dark: #fff;
-  --header-exit-color: #E81123;
-  --header-height: 28px;
-  /**/
+  /* Color Vars */
+  --main-accent-color: #6760FA;
+  --main-p-color: #fff;
+  /* blue, green orange, red*/
   --accent-color-1: #1B6DE0;
   --accent-color-2: #079954;
   --accent-color-3: #DB7C00;
   --accent-color-4: #E54937;
   /**/
+  /*27292D*/
   --body-color: #141414;
   --body-color-transparent: #14141400;
-  --container-color-transparent: #1F1F1F00;
+  /*3E4245*/
   --container-color: #1F1F1F;
+  --container-color-transparent: #1F1F1F00;
   --text-color: #fff;
+  /* Header Vars */
+  --header-exit-color: #E81123;
+  --header-height: 28px;
+  --header-color: #272B3A;
+  /* Trial Vars */
+  --trial-entry-height: 70px;
 }

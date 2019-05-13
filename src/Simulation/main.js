@@ -42,3 +42,9 @@ module.exports.changeSeparation = (step) => {
     simulation.separation = math.round(math.add(simulation.separation, step), 3);
   }
 }
+
+module.exports.getExportable = () => {
+  if (simulation) {
+    return ("");
+  }
+}

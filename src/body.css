@@ -9,7 +9,12 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--body-color);
+  margin: 1px 0 3px 0;
+}
+
+::-webkit-scrollbar:hover {
+  width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -18,9 +23,9 @@ body {
   transition: all 200ms cubic-bezier(.25, .1, .25, 1);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #fff;
-}
+/* ::-webkit-scrollbar-thumb:hover {
+  background: var(--main-accent-color);
+} */
 
 .main-body-wrapper {
   position: absolute;
