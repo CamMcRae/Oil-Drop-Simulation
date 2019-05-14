@@ -36,5 +36,6 @@ body {
   right: 0;
   height: auto;
   padding: 22px;
-  background-color: var(--main-body-color);
+  background-image: linear-gradient(to top right, var(--body-gradient-start), var(--body-gradient-end));
+  /* background-color: var(--main-body-color); */
 }

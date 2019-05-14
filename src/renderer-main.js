@@ -56,7 +56,7 @@ $(document).ready(() => {
   $('span.plate-input-wrapper.dynamic').text(constants.defaultSeparation);
   $('#gConst.list-element .list-body')[0].innerHTML = constants.gravity;
   $('#pConst.list-element .list-body')[0].innerHTML = constants.densityOil;
-  $('#nConst.list-element .list-body')[0].innerHTML = constants.permeabilityAirSci.str + `<sup>${constants.permeabilityAirSci.exp}</sup>`;
+  $('#nConst.list-element .list-body')[0].innerHTML = constants.densityAir;
   for (let i = 0; i < 10; i++) {
     addTrial(i);
   }

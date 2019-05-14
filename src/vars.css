@@ -6,6 +6,9 @@
   --main-p-color-dark: #24292E;
   --main-body-color-dark: #fff;
   /* Color Vars */
+  --body-gradient-start: #181818;
+  --body-gradient-end: #292D30;
+  /*  */
   --main-accent-color: #6760FA;
   --main-p-color: #fff;
   /* blue, green orange, red*/
