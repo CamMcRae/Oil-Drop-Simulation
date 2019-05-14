@@ -10,7 +10,7 @@ body {
 
 ::-webkit-scrollbar-track {
   background: var(--body-color);
-  margin: 1px 0 3px 0;
+  /* margin: 1px 0 3px 0; */
 }
 
 ::-webkit-scrollbar:hover {
@@ -18,14 +18,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #fff;
+  background-color: #ffffff0f;
   border-radius: 2px;
   transition: all 200ms cubic-bezier(.25, .1, .25, 1);
 }
-
-/* ::-webkit-scrollbar-thumb:hover {
-  background: var(--main-accent-color);
-} */
 
 .main-body-wrapper {
   position: absolute;

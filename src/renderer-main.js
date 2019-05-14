@@ -14,27 +14,27 @@ Mousetrap.bind(["ctrl+l"], () => {
 });
 
 Mousetrap.bind(["command+w", "ctrl+w"], () => {
-  sendIPC('app-message', 'close-app')
+  sendIPC('app-message', 'close-app');
 });
 
 Mousetrap.bind(["command+r", "ctrl+r"], () => {
-  sendIPC('app-message', 'reload-app')
+  sendIPC('app-message', 'reload-app');
 });
 
 Mousetrap.bind(["command+s", 'ctrl+s'], () => {
-  sendIPC('file-output', '00, 01, 02\n10,11,12')
+  sendIPC('file-output', '00, 01, 02\n10,11,12');
 });
 
 $(".exit").on('click', () => {
-  sendIPC('app-message', 'close-app')
+  sendIPC('app-message', 'close-app');
 });
 
 $(".minimize").on('click', () => {
-  sendIPC('app-message', 'minimize-app')
+  sendIPC('app-message', 'minimize-app');
 });
 
 $(".maximize").on('click', () => {
-  sendIPC('app-message', 'maximize-app')
+  sendIPC('app-message', 'maximize-app');
 });
 
 $('.export-button-wrapper>.export-button').on('click', () => {
