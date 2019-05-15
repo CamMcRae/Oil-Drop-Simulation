@@ -135,6 +135,8 @@ function updateTrialList() {
   }
 }
 
-// $(".inner").hover(() => {
-//   $(".outer").toggleClass("foo");
+// $(".right-slide-toggle-wrapper").on('hover', () => {
+//   $(".right-slide-pane").addClass('bump');
+//   console.log("FDS");
+//   // $(".right-slide-pane").removeClass('bump');
 // });

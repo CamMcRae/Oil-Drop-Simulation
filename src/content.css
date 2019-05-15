@@ -9,6 +9,11 @@ p {
   font-family: Roboto, sans-serif;
   font-size: 14px;
   color: var(--main-p-color);
+  -webkit-user-select: none;
+}
+
+p.selectable {
+  -webkit-user-select: text;
 }
 
 .list-element p {

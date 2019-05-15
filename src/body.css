@@ -25,7 +25,8 @@ body {
 
 .main-body-wrapper {
   position: absolute;
-  display: block;
+  display: flex;
+  flex-flow: row;
   top: 28px;
   left: 0;
   bottom: 0;
