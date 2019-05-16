@@ -24,6 +24,8 @@
   --container-color: #1F1F1F;
   --container-color-transparent: #1F1F1F00;
   --text-color: #fff;
+  /* Lighter Container Color  */
+  --container-color-light: #3D3D3D;
   /* Header Vars */
   --header-exit-color: #E81123;
   --header-height: 28px;
