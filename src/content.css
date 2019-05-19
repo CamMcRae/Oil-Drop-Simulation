@@ -8,12 +8,25 @@ p {
   cursor: default;
   font-family: Roboto, sans-serif;
   font-size: 14px;
-  color: var(--main-p-color);
+  color: var(--text-color);
   -webkit-user-select: none;
 }
 
 p.selectable {
   -webkit-user-select: text;
+}
+
+p.heading {
+  font-size: 32px;
+  line-height: 32px;
+  color: #fff;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 8px;
+  /* transform: translateY(-5px); */
+  /* font-variant: small-caps; */
+  text-transform: uppercase;
+  /* transform: translateY(-8px); */
 }
 
 .list-element p {
@@ -37,4 +50,17 @@ p.selectable {
 .list-element {
   white-space: nowrap;
   margin: 0 0 20px 0;
+}
+
+.inline {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.icon {
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100%;
+  -webkit-mask-position: center;
+  height: 32px;
+  width: 32px;
 }

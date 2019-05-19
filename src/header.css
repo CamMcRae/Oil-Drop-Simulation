@@ -4,7 +4,7 @@
   overflow: hidden;
   height: var(--header-height);
   width: 100%;
-  background-color: var(--header-color);
+  background-color: var(--body-color);
 }
 
 .hidden {
@@ -12,7 +12,7 @@
 }
 
 .header-icon {
-  float:left;
+  float: left;
   max-width: calc(var(--header-height) * 0.7);
   max-height: calc(var(--header-height) * 0.7);
   margin: calc(var(--header-height) * 0.15);
@@ -21,9 +21,8 @@
   height: 100%;
   background-size: contain;
   background-clip: content-box;
-  /* background-color: #fff; */
   background-image: url("../assets/1.ico");
-  background-repeat:no-repeat;
+  background-repeat: no-repeat;
 }
 
 .title-wrapper {
@@ -48,11 +47,10 @@
 .header-button {
   float: right;
   height: inherit;
-  background-color: var(--header-color);
-  transition: background-color 200ms cubic-bezier(.25, .1, .25, 1);
   width: var(--header-height);
   cursor: pointer;
   display: flex;
+  transition: all 200ms cubic-bezier(.25, .1, .25, 1);
 }
 
 .header-button svg {
@@ -67,5 +65,5 @@
 }
 
 .header-button:hover {
-  background-color: var(--main-accent-color);
+  background-color: var(--container-color-light);
 }

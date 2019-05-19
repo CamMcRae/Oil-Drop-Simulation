@@ -135,8 +135,137 @@ function updateTrialList() {
   }
 }
 
+// stops right pane from showing when the slider is interacted with
+$('.slider').on('mouseenter', () => {
+  $('.right-slide-pane').addClass('no-grow');
+  $('.slider-content').addClass('blur');
+});
+
+$('.slider').on('mouseleave', () => {
+  $('.right-slide-pane').removeClass('no-grow');
+  $('.slider-content').removeClass('blur');
+});
+
+// $('.slider-wrapper').on('click', (e) => {
+//   let w = e.currentTarget.offsetWidth;
+//   let p = (e.originalEvent.pageX - e.currentTarget.offsetLeft).clamp(0, w);
+//   console.log("PERCENT: " + p / w * 100);
+//   let slider;
+//   if (p <= w / 2) {
+//     slider = map(p, 0, w / 2, 1, 500);
+//   } else {
+//     slider = map(p, w / 2, w, 500, 1000);
+//   }
+//   setSlider(slider);
+//   updateSpeed(slider / 10);
+// });
+
+$('input.slider').change((e, i) => {
+  let s = $(e.target).val();
+  updateSpeed(getRealSliderValue(s));
+});
+
+$('.sim-speed-wrapper.slow .sim-speed-content').on('click', () => {
+  let s = 1;
+  setSlider(getSliderLogFromValue(s), s);
+});
+
+$('.sim-speed-wrapper.medium .sim-speed-content').on('click', () => {
+  let s = 10;
+  setSlider(getSliderLogFromValue(s), s);
+});
+
+$('.sim-speed-wrapper.fast .sim-speed-content').on('click', () => {
+  let s = 100;
+  setSlider(getSliderLogFromValue(s), s);
+});
+
+// interprets the value the slider is set to
+function getRealSliderValue(_v) {
+  if (!_v) {
+    _v = $('input.slider')
+  }
+  if (_v <= 500) {
+    return map(_v, 1, 500, 1, 10);
+  } else {
+    return map(_v, 500, 1000, 10, 100);
+  }
+}
+
+// returns the logarithmic value to set the slider position
+function getSliderLogFromValue(_v) {
+  return Math.log10(_v) * 500;
+}
+
+// sets the slider to a value
+function setSlider(_v, _s) {
+  $('input.slider').val(_v);
+  let s = _s || getRealSliderValue();
+  updateSpeed(s);
+}
+
+// updates the simulation speed with non logarithmic #'s
+function updateSpeed(_v) {
+  let v = Math.round(_v);
+  sim.setSpeed(v);
+}
+
+// maps a range onto another range
+function map(value, in_min, in_max, out_min, out_max) {
+  return (value - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+// stops a value from exceeding a range
+Number.prototype.clamp = function(min, max) {
+  return Math.min(Math.max(this, min), max);
+};
+
 // $(".right-slide-toggle-wrapper").on('hover', () => {
 //   $(".right-slide-pane").addClass('bump');
 //   console.log("FDS");
 //   // $(".right-slide-pane").removeClass('bump');
 // });
+
+// runs every update loop of the simulation
+
+let p = 0;
+module.exports.updateTime = (_t) => {
+  p++
+  if (p % 3 == 0) {
+    let t = formatStopwatchText(_t.total);
+    $(".stopwatch-display .display-text").text(t);
+  }
+}
+
+function formatStopwatchText(_t) {
+  let num = Math.round(_t / 10) / 100;
+  let t = num.toString();
+  let i = t.indexOf(".")
+  let s;
+  if (i != -1) {
+    s = t.substring(i + 1);
+    if (s.length == 1) t += "0";
+  } else {
+    t += ".00"
+  }
+
+  return t
+}
+
+$('.stopwatch-toggle').on('click', (_e) => {
+  let e = $(_e.target);
+  sim.toggleTime();
+  if (e.hasClass('stop')) {
+    e.removeClass('stop');
+  } else {
+    e.addClass('stop');
+  }
+});
+
+$('.stopwatch-reset').on('click', (_e) => {
+  $('.stopwatch-reset-wrapper').addClass('spin');
+  sim.resetTime();
+  $('.stopwatch-reset-wrapper').on('animationend', (t) => {
+    $('.stopwatch-reset-wrapper').removeClass('spin');
+  });
+});

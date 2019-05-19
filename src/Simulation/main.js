@@ -48,3 +48,17 @@ module.exports.getExportable = () => {
     return ("");
   }
 }
+
+module.exports.toggleTime = () => {
+  simulation.time.toggle()
+}
+
+module.exports.resetTime = () => {
+  simulation.time.reset();
+}
+
+module.exports.setSpeed = (_s) => {
+  if (simulation) {
+    simulation.time.speed = _s;
+  }
+}

@@ -1,6 +1,4 @@
 :root {
-  --main-p-color: #74B1BE;
-  --main-accent-color: #74B1BE;
   --header-color: #2B2E3B;
   --main-body-color: #24292E;
   --main-p-color-dark: #24292E;
@@ -9,7 +7,10 @@
   --body-gradient-start: #181818;
   --body-gradient-end: #292D30;
   /*  */
-  --main-accent-color: #6760FA;
+  /* #FEC001 */
+  /* #6760FA */
+  --main-accent-color: #FEC001;
+  --main-accent-color-blur: #6760FA4F;
   --main-p-color: #fff;
   /* blue, green orange, red*/
   --accent-color-1: #1B6DE0;

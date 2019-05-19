@@ -1,10 +1,10 @@
 const constants = require('./constants.json');
 const Timer = require('./time.js')
 const Droplet = require('./droplet.js');
+const body = require('../renderer-main.js');
 
 class Simulation {
   constructor() {
-    this.timestep = 1;
     this.gField = constants.gravity;
     this.eField = {
       enabled: false,
@@ -22,6 +22,7 @@ class Simulation {
     if (this.droplet) {
       this.droplet.update(this, time);
     }
+    body.updateTime(this.time);
     this.show();
   }
 

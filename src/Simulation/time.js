@@ -13,12 +13,26 @@ class Timer {
 
   reset() {
     this.paused = false;
-    this.start = Date.now();
     this.total = 0;
   }
 
   getTotal() {
     console.log(this.total);
+  }
+
+  toggle() {
+    this.paused ? this.start() : this.stop()
+  }
+
+  start() {
+    if (this.total == 0) {
+      this.start = Date.now();
+    }
+    this.paused = false;
+  }
+
+  stop() {
+    this.paused = true;
   }
 }
 

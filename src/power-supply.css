@@ -1,0 +1,5 @@
+.power-content-wrapper {
+  border-top: 1px solid var(--container-color);
+  padding-top: 10px;
+  margin-top: 10px;
+}

@@ -11,6 +11,9 @@
   <link rel="stylesheet" type="text/css" href="./rightSlidePane.css">
   <link rel="stylesheet" type="text/css" href="./content.css">
   <link rel="stylesheet" type="text/css" href="./trial-pane-styling.css">
+  <link rel="stylesheet" type="text/css" href="./stopwatch.css">
+  <link rel="stylesheet" type="text/css" href="./power-supply.css">
+  <link rel="stylesheet" type="text/css" href="./timestep.css">
 </head>
 
 <body>
@@ -56,14 +59,63 @@
       </div>
       <!-- Right Side of Screen -->
       <div class="right-pane">
-        <div class="slider-content-wrapper">
-          <div class="slider-content">
-            <div class="slider-wrapper">
-              <input class="slider" type="range" value="1" min="1" max="100">
+        <div class="time-slider-content-wrapper">
+          <div class="time-slider-content">
+            <p class="heading">Time Step</p>
+            <div class="stop">
             </div>
-            <p class="sim-speed slow">1</p>
-            <p class="sim-speed medium">10</p>
-            <p class="sim-speed fast">100</p>
+            <div class="slider-wrapper">
+              <div class="slider-content">
+                <input class="slider" type="range" value="1" min="1" max="1000">
+              </div>
+            </div>
+            <div class="sim-speed-wrapper slow">
+              <div class="sim-speed-content">
+                <p class="sim-speed">1</p>
+              </div>
+            </div>
+            <div class="sim-speed-wrapper medium">
+              <div class="sim-speed-content">
+                <p class="sim-speed">10</p>
+              </div>
+            </div>
+            <div class="sim-speed-wrapper fast">
+              <div class="sim-speed-content">
+                <p class="sim-speed">100</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Stopwatch -->
+        <div class="stopwatch-content-wrapper">
+          <div class="inline stopwatch icon">
+            <div class="circle">
+
+            </div>
+          </div>
+          <p class="inline heading">Stopwatch</p>
+          <div class="stopwatch-content">
+            <div class="stopwatch-display">
+              <div class="display-text-wrapper">
+                <p class="display-text"></p>
+              </div>
+              <p class="display-units">s</p>
+            </div>
+            <div class="stopwatch-toggle-wrapper">
+              <div class="stopwatch-toggle stop">
+              </div>
+            </div>
+            <div class="stopwatch-reset-wrapper">
+              <div class="stopwatch-reset">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Power Supply -->
+        <div class="power-content-wrapper">
+          <p class="heading">Power Supply</p>
+          <div class="power-content">
+
           </div>
         </div>
       </div>
@@ -114,7 +166,7 @@
         <div class="right-slide-content-wrapper">
           <div class="right-slide-content">
             <div class="trial-pane-header-wrapper">
-              <p>Saved Runs</p>
+              <p class="heading">Saved Runs</p>
               <div class="export-trials-content-wrapper">
                 <div class="export-button-wrapper">
                   <div class="export-button">
