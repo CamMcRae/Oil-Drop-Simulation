@@ -14,6 +14,7 @@
   <link rel="stylesheet" type="text/css" href="./stopwatch.css">
   <link rel="stylesheet" type="text/css" href="./power-supply.css">
   <link rel="stylesheet" type="text/css" href="./timestep.css">
+  <link rel="stylesheet" type="text/css" href="./simulation-window.css">
 </head>
 
 <body>
@@ -45,7 +46,13 @@
   <div class="main-body-wrapper">
     <div class="left-pane">
       <div class="main-sim-window">
-
+        <div class="sim-scale">
+        </div>
+        <div class="oil-drop-track">
+          <div class="oil-drop-wrapper">
+            <p class="oil-drop">.</p>
+          </div>
+        </div>
       </div>
       <div class="plate-dist">
         <div class="plate-input-selector-wrapper">
@@ -61,27 +68,29 @@
       <div class="right-pane">
         <div class="time-slider-content-wrapper">
           <div class="time-slider-content">
+            <div class="inline speed icon">
+            </div>
             <p class="heading">Time Step</p>
             <div class="stop">
             </div>
             <div class="slider-wrapper">
               <div class="slider-content">
-                <input class="slider" type="range" value="1" min="1" max="1000">
+                <input id="time-step" class="slider" type="range" value="0" min="0" max="1000">
               </div>
             </div>
-            <div class="sim-speed-wrapper slow">
-              <div class="sim-speed-content">
-                <p class="sim-speed">1</p>
+            <div class="slider-label-wrapper left">
+              <div class="slider-label-content">
+                <p class="slider-label">1</p>
               </div>
             </div>
-            <div class="sim-speed-wrapper medium">
-              <div class="sim-speed-content">
-                <p class="sim-speed">10</p>
+            <div class="slider-label-wrapper center">
+              <div class="slider-label-content">
+                <p class="slider-label">10</p>
               </div>
             </div>
-            <div class="sim-speed-wrapper fast">
-              <div class="sim-speed-content">
-                <p class="sim-speed">100</p>
+            <div class="slider-label-wrapper right">
+              <div class="slider-label-content">
+                <p class="slider-label">100</p>
               </div>
             </div>
           </div>
@@ -89,9 +98,6 @@
         <!-- Stopwatch -->
         <div class="stopwatch-content-wrapper">
           <div class="inline stopwatch icon">
-            <div class="circle">
-
-            </div>
           </div>
           <p class="inline heading">Stopwatch</p>
           <div class="stopwatch-content">
@@ -101,21 +107,44 @@
               </div>
               <p class="display-units">s</p>
             </div>
-            <div class="stopwatch-toggle-wrapper">
-              <div class="stopwatch-toggle stop">
+            <div class="stopwatch-buttons">
+              <div class="stopwatch-toggle-wrapper">
+                <div class="stopwatch-toggle">
+                </div>
               </div>
-            </div>
-            <div class="stopwatch-reset-wrapper">
-              <div class="stopwatch-reset">
+              <div class="stopwatch-reset-wrapper">
+                <div class="stopwatch-reset">
+                </div>
               </div>
             </div>
           </div>
         </div>
         <!-- Power Supply -->
         <div class="power-content-wrapper">
-          <p class="heading">Power Supply</p>
+          <div class="inline power icon">
+          </div>
+          <p class="inline heading">Power Supply</p>
           <div class="power-content">
-
+            <div class="slider-wrapper">
+              <div class="slider-content">
+                <input id="voltage" class="slider" type="range" value="1" min="0" max="1000">
+              </div>
+            </div>
+            <div class="slider-label-wrapper left">
+              <div class="slider-label-content">
+                <p class="slider-label">0</p>
+              </div>
+            </div>
+            <div class="slider-label-wrapper center">
+              <div class="slider-label-content">
+                <p class="slider-label">Voltage</p>
+              </div>
+            </div>
+            <div class="slider-label-wrapper right">
+              <div class="slider-label-content">
+                <p class="slider-label">1000</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -179,32 +208,32 @@
                 </div>
               </div>
             </div>
-            <div class="trial-header-menu ">
+            <div class="trial-header-menu">
               <p>Number</p>
               <p>E-Field</p>
               <p>Time</p>
               <p>Distance</p>
             </div>
-            <div class="trial-entries ">
-              <div class="trial-entry defaultConstructor ">
-                <p class="number ">1</p>
-                <p class="eField ">2</p>
-                <p class="time ">3</p>
-                <p class="distance ">4</p>
-                <div class="remove-trial-wrapper ">
+            <div class="trial-entries">
+              <div class="trial-entry defaultConstructor">
+                <p class="number">1</p>
+                <p class="eField">2</p>
+                <p class="time">3</p>
+                <p class="distance">4</p>
+                <div class="remove-trial-wrapper">
                   <div class="remove-trial ">
-                    <div class="button-wrapper ">
-                      <div class="button ">
+                    <div class="button-wrapper">
+                      <div class="button">
 
                       </div>
                     </div>
-                    <p class="hover-show ">Delete?</p>
+                    <p class="hover-show">Delete?</p>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="trial-footer-wrapper ">
-              <div class="trial-footer ">
+            <div class="trial-footer-wrapper">
+              <div class="trial-footer">
                 <!-- <p class="trial-export ">Export Entries</p> -->
               </div>
             </div>
@@ -212,9 +241,10 @@
         </div>
       </div>
     </div>
-    <script type="text/javascript ">
-      require('./renderer-main.js')
+    <script type="text/javascript">
+      require('./renderer-main.js');
     </script>
+
 </body>
 
 </html>

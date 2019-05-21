@@ -3,3 +3,10 @@
   padding-top: 10px;
   margin-top: 10px;
 }
+
+.icon.power {
+  -webkit-mask-image: url("../assets/power-icon.svg");
+  background-color: var(--main-accent-color);
+  position: relative;
+  transform: translateY(-1px);
+}

@@ -2,6 +2,7 @@ class Timer {
   constructor(_s) {
     this.speed = _s || 1;
     this.reset();
+    this.paused = true;
   }
 
   update(_t) {
@@ -12,12 +13,7 @@ class Timer {
   }
 
   reset() {
-    this.paused = false;
     this.total = 0;
-  }
-
-  getTotal() {
-    console.log(this.total);
   }
 
   toggle() {
@@ -26,13 +22,18 @@ class Timer {
 
   start() {
     if (this.total == 0) {
-      this.start = Date.now();
+      this.startTime = Date.now();
     }
     this.paused = false;
+    return this.startTime;
   }
 
   stop() {
     this.paused = true;
+  }
+
+  getTotal() {
+    return this.total;
   }
 }
 

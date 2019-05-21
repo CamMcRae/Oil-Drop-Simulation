@@ -10,7 +10,7 @@
   /* #FEC001 */
   /* #6760FA */
   --main-accent-color: #FEC001;
-  --main-accent-color-blur: #6760FA4F;
+  --main-accent-color-blur: #FEC0014F;
   --main-p-color: #fff;
   /* blue, green orange, red*/
   --accent-color-1: #1B6DE0;
@@ -33,4 +33,7 @@
   --header-color: #272B3A;
   /* Trial Vars */
   --trial-entry-height: 70px;
+  /* Stopwatch */
+  --stopwatch-height: 36px;
+  --stopwatch-background-size: 60%;
 }

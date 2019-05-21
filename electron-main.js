@@ -22,6 +22,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true
     },
+    backgroundColor: '#fff',
     frame: false
   })
   // removes a secondary menu at the top

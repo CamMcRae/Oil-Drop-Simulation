@@ -7,7 +7,8 @@
     "exp": -5
   },
   "densityOil": 925,
-  "dragCoefficientOil": 0.5,
+  "dragCoefficientSphere": 0.5,
   "defaultSeparation": 0.025,
-  "defaultListHTML": ""
+  "defaultListHTML": "",
+  "fundamentalCharge": 1.602176634e-19
 }

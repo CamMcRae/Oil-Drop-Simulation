@@ -5,13 +5,6 @@
   margin-right: 22px;
 }
 
-.main-sim-window {
-  width: 100%;
-  height: calc(100% - 30px - 22px);
-  background-color: #fff;
-  margin-bottom: 22px;
-}
-
 .plate-dist {
   height: 30px;
   text-align: center;
@@ -33,8 +26,8 @@
   text-align: center;
   white-space: nowrap;
   user-select: none;
-  -webkit-touch-callout:none;
-  cursor:text;
+  -webkit-touch-callout: none;
+  cursor: text;
 }
 
 .plate-input-wrapper.editing {
@@ -43,7 +36,7 @@
 
 .plate-input-selector-wrapper>.arrow {
   margin-top: -3px;
-  font-stretch:ultra-condensed;
+  font-stretch: ultra-condensed;
   cursor: pointer;
   font-size: 28px;
   font-family: Roboto;
