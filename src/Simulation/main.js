@@ -30,12 +30,15 @@ module.exports.getSeparation = () => {
 }
 
 module.exports.setSeparation = (_v) => {
-  if (simulation) simulation.separation = _v;
+  if (!simulation) return;
+  simulation.separation = _v;
+  simulation.updateEfield();
 }
 
 module.exports.changeSeparation = (step) => {
   if (!simulation) return;
   simulation.separation = math.round(math.add(simulation.separation, step), 3);
+  simulation.updateEfield(_d);
 }
 
 module.exports.getExportable = () => {

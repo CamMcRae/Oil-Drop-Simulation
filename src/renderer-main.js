@@ -291,11 +291,12 @@ module.exports.updateDrop = (_d) => {
 
 // adds a trial to the trials pane
 function addTrial(_t) {
+  console.log(_t);
   let b = $('.trial-entries .trial-entry.defaultConstructor').clone();
   let temp = b.clone().removeClass('defaultConstructor');
   temp.find('.eField').text(_t.field);
   temp.find('.time').text(Math.round(_t.time * 1000) / 1000);
-  temp.find('.distance').text(_t.distance);
+  temp.find('.distance').text(Math.round(_t.distance * 1000) / 1000);
   $('.trial-entries').append(temp);
   updateTrialList();
 }

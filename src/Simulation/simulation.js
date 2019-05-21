@@ -43,7 +43,7 @@ class Simulation {
   }
 
   spawnDrop() {
-    this.droplet = new Droplet(0.0005, 2, this);
+    this.droplet = new Droplet(8.069e-7, 2, this);
     this.time.reset();
   }
 
@@ -67,11 +67,15 @@ class Simulation {
   }
 
   updateEfield(_d) {
-    this.eField = {
-      enabled: _d.enabled,
-      reverse: _d.reverse,
-      magnitude: _d.voltage / this.separation
-    };
+    if (_d) {
+      this.eField = {
+        enabled: _d.enabled,
+        reverse: _d.reverse,
+        magnitude: _d.voltage / this.separation
+      };
+    } else {
+      this.eField.magnitude = this.voltage / this.separation
+    }
     this.droplet.newConstants(this.eField);
   }
 }

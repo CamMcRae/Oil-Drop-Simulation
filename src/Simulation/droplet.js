@@ -8,8 +8,10 @@ class Droplet {
     this.dragCoefficient = constants.dragCoefficientSphere;
     this.volume = 4 / 3 * Math.PI * Math.pow(this.radius, 3); // m^3
     this.mass = this.volume * this.density; // kg
-    this.charge = _c || Math.Ceil(Math.random() * 10) + 1; // C, 1 - 10;
+    this.charge = _c || Math.Floor(Math.random() * 10) + 1; // C, 1 - 10;
     this.area = Math.PI * this.radius * this.radius; // m^2
+
+    console.log(this.mass)
 
     this.pos = 0; // m
     this.vel = 0; // m/s
@@ -23,29 +25,30 @@ class Droplet {
   update(time) {
     let Fd = Math.pow(this.vel, 2) * this.dragConst * -Math.sign(this.vel);
 
+    // let Fd = 6 * Math.PI * constants.permeabilityAir * this.radius * this.vel;
+
     let Fnet = this.Fe - this.Fg + Fd;
 
     this.acc = Fnet / this.mass;
     this.vel += this.acc * (time.deltaTime / 1000);
     this.vel = Math.sign(this.vel) * Math.min(this.vt, Math.abs(this.vel));
 
-    this.pos += this.vel;
-
+    this.pos += this.vel * (time.deltaTime / 1000);
+    // 
     // if (!isNaN(Fd)) {
-    //   console.log("////////////////////////////////");
+    //   console.log("//////////////////////");
+    //   console.log("VT: " + this.vt);
     //   console.log("Drag: " + Fd);
     //   console.log("Acc: " + this.acc);
     //   console.log("Vel: " + this.vel);
     //   console.log("Pos: " + this.pos);
     // }
-    console.log(this.vel);
   }
 
   newConstants(_e) {
     this.Fe = this.charge * this.simulation.eField.magnitude * constants.fundamentalCharge;
-    this.vt = Math.pow((2 * this.mass * (constants.gravity + this.Fe / this.mass)) / (this.density * this.area * this.dragCoefficient), 1 / 2);
+    this.vt = 2 / 9 * (Math.pow(this.radius, 2) * (constants.densityAir - constants.densityOil) * (-constants.gravity + this.Fe / this.mass)) / constants.permeabilityAir;
     this.Fg = this.mass * this.simulation.gField;
-    // console.log(this.vt);
   }
 }
 
