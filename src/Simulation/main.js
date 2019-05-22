@@ -21,6 +21,7 @@ module.exports.run = () => {
     }
     for (let i = 0; i < simulation.time.speed; i++) {
       simulation.update(time);
+      renderer.drawLoop(simulation);
     }
   }, true);
 };

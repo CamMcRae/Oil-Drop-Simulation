@@ -10,6 +10,7 @@ class Simulation {
     this.eField = {
       enabled: true,
       reverse: false,
+      voltage: 0,
       magnitude: 0
     };
     this.separation = constants.defaultSeparation;
@@ -71,6 +72,7 @@ class Simulation {
       this.eField = {
         enabled: _d.enabled,
         reverse: _d.reverse,
+        voltage: _d.votage,
         magnitude: _d.voltage / this.separation
       };
     } else {

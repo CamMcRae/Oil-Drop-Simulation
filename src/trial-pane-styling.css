@@ -45,7 +45,7 @@
 .export-button-wrapper {
   height: var(--trial-pane-header-height);
   width: var(--trial-pane-header-height);
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .export-button-wrapper>.export-button {
@@ -186,7 +186,7 @@ div.remove-trial {
   cursor: pointer;
 }
 
-div.remove-trial div.button-wrapper {
+div.remove-trial div.remove-trial-button-wrapper {
   position: absolute;
   height: 100%;
   width: calc(var(--trial-entry-height) / 2);
@@ -212,7 +212,7 @@ div.remove-trial:hover p.hover-show {
   transform: translateY(-20%);
 }
 
-div.remove-trial div.button-wrapper div.button {
+div.remove-trial div.remove-trial-button-wrapper div.remove-trial-button {
   background-color: #ffffff00;
   -webkit-mask-image: url('../assets/x-button.svg');
   -webkit-mask-repeat: no-repeat;
@@ -226,11 +226,11 @@ div.remove-trial div.button-wrapper div.button {
   transition: all 200ms cubic-bezier(.25, .1, .25, 1);
 }
 
-.trial-entry:hover div.button-wrapper div.button {
+.trial-entry:hover div.remove-trial-button-wrapper div.remove-trial-button {
   background-color: #fff;
 }
 
-div.remove-trial:hover div.button-wrapper div.button {
+div.remove-trial:hover div.remove-trial-button-wrapper div.remove-trial-button {
   transform: scale(.8, .8) translateY(-30%);
   background-color: var(--accent-color-4);
 }

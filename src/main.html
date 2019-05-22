@@ -46,11 +46,14 @@
   <div class="main-body-wrapper">
     <div class="left-pane">
       <div class="main-sim-window">
-        <div class="sim-scale">
-        </div>
-        <div class="oil-drop-track">
-          <div class="oil-drop-wrapper">
-            <p class="oil-drop">.</p>
+        <canvas id="canvas"></canvas>
+        <div class="no-display" style="display:none;">
+          <div class="sim-scale">
+          </div>
+          <div class="oil-drop-track">
+            <div class="oil-drop-wrapper">
+              <p class="oil-drop">.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -146,6 +149,12 @@
               </div>
             </div>
             <br>
+            <div class="voltage-reading">
+              <div class="voltage-display-text-wrapper">
+                <p class="voltage-display-text">0</p>
+              </div>
+              <p class="voltage-display-units">v</p>
+            </div>
             <div id="voltage-toggle" class="button-wrapper">
               <div class="button-content">
                 <div class="button-icon-wrapper">
@@ -154,6 +163,16 @@
                   </div>
                 </div>
                 <p class="button-name">Power</p>
+              </div>
+            </div>
+            <div id="polarity-toggle" class="button-wrapper">
+              <div class="button-content">
+                <div class="button-icon-wrapper">
+                  <div class="button-icon">
+
+                  </div>
+                </div>
+                <p class="button-name">Polarity</p>
               </div>
             </div>
           </div>
@@ -190,15 +209,20 @@
                 <p class="list-body constant selectable">hfsudihfj</p>
                 <p class="list-body selectable">m/s<sup>2</sup></p>
               </div>
-              <div id="pConst" class="list-element">
+              <div id="pConst-oil" class="list-element">
                 <p class="list-title">Density of Oil</p>
                 <p class="list-body constant selectable"></p>
                 <p class="list-body selectable">kg/m<sup>3</sup></p>
               </div>
-              <div id="nConst" class="list-element">
+              <div id="pConst-air" class="list-element">
                 <p class="list-title">Density of Air</p>
                 <p class="list-body constant selectable"></p>
                 <p class="list-body selectable">kg/m<sup>3</sup></p>
+              </div>
+              <div id="nConst" class="list-element">
+                <p class="list-title">Permeability of <br>Free Space</p>
+                <p class="list-body constant selectable"></p>
+                <p class="list-body selectable">kg/(m·s)</p>
               </div>
             </div>
           </div>
@@ -232,9 +256,9 @@
                 <p class="time">3</p>
                 <p class="distance">4</p>
                 <div class="remove-trial-wrapper">
-                  <div class="remove-trial ">
-                    <div class="button-wrapper">
-                      <div class="button">
+                  <div class="remove-trial">
+                    <div class="remove-trial-button-wrapper">
+                      <div class="remove-trial-button">
 
                       </div>
                     </div>

@@ -5,6 +5,10 @@ const Mousetrap = require('mousetrap');
 window.$ = window.jQuery = require('jquery');
 const constants = require('./simulation/constants.json');
 const math = require('mathjs');
+const p5 = require('p5');
+
+let canvas;
+let ctx;
 
 let sim = require("./Simulation/main.js");
 sim.run();
@@ -58,17 +62,15 @@ function sendIPC(callID, arg) {
   ipcRenderer.send(callID, arg)
 }
 
-// when a save attempt has been completed the status is returned to update html
-ipcRenderer.on('file-save-status', (event, arg) => {
-  // send to simulation
-});
-
 // when the document has loaded, initialize elements and their content
 $(document).ready(() => {
   $('span.plate-input-wrapper.dynamic').text(constants.defaultSeparation);
   $('#gConst.list-element .list-body')[0].innerHTML = constants.gravity;
-  $('#pConst.list-element .list-body')[0].innerHTML = constants.densityOil;
-  $('#nConst.list-element .list-body')[0].innerHTML = constants.densityAir;
+  $('#pConst-oil.list-element .list-body')[0].innerHTML = constants.densityOil;
+  $('#pConst-air.list-element .list-body')[0].innerHTML = constants.densityAir;
+  $('#nConst.list-element .list-body')[0].innerHTML = constants.permeabilityAirSci.str + `<sup>${constants.permeabilityAirSci.exp}</sup>`;
+  canvas = document.getElementById("canvas");
+  ctx = setupCanvas(canvas);
 });
 
 $('span.dynamic').on('click', (_e) => {
@@ -84,7 +86,6 @@ $('span.dynamic').on('blur', (_e) => {
   $(e).attr('contentEditable', false);
   let c = $(e).text();
 
-
   let v = sim.getSeparation();
   if (isNaN(c) || c == "") {
     $(e).text(v);
@@ -97,7 +98,7 @@ $('span.dynamic').on('blur', (_e) => {
 
 $('span.dynamic').on('keypress', (e) => {
   if (e.which == 13) $('span.dynamic').trigger('blur');
-})
+});
 
 $('.plate-input-selector-wrapper .arrow').on('click', (_e) => {
   let e = $(_e.target);
@@ -112,8 +113,10 @@ $('.plate-input-selector-wrapper .arrow').on('click', (_e) => {
   let v = sim.getSeparation();
   if (math.mod(v, 0.01) == 0) v = v.toString() + "0";
   $('span.dynamic.plate-input-wrapper').text(v);
+  updateEfield();
 });
 
+// event listener for right toggle
 $('.right-slide-toggle').on('click', () => {
   $('.right-slide-pane').toggleClass('expand');
 });
@@ -210,11 +213,6 @@ function map(value, in_min, in_max, out_min, out_max) {
   return (value - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-// stops a value from exceeding a range
-Number.prototype.clamp = function(min, max) {
-  return Math.min(Math.max(this, min), max);
-};
-
 // runs every update loop of the simulation
 let p = 0;
 module.exports.updateTime = (_t, _f) => {
@@ -274,7 +272,11 @@ function resetTime() {
 }
 
 // toggles the simulation on and off
+let on = false;
+
 function toggleSim() {
+  on = !on;
+  toggleVoltageIcon(false);
   toggleTime();
   let t = sim.toggleSim();
   if (t) addTrial(t);
@@ -291,7 +293,6 @@ module.exports.updateDrop = (_d) => {
 
 // adds a trial to the trials pane
 function addTrial(_t) {
-  console.log(_t);
   let b = $('.trial-entries .trial-entry.defaultConstructor').clone();
   let temp = b.clone().removeClass('defaultConstructor');
   temp.find('.eField').text(_t.field);
@@ -302,14 +303,20 @@ function addTrial(_t) {
 }
 
 // listens for the voltage slider to move and updates the simulation accordingly
-$('input.slider#voltage').on('input', (e) => {
+$('input.slider#voltage').on('input', (_e) => {
+  updateVoltageDisplay(_e);
   updateEfield();
 });
+
+function updateVoltageDisplay(_e) {
+  let v = $(_e.currentTarget).val();
+  $('.voltage-display-text').text(v);
+}
 
 function updateEfield() {
   let voltage = parseInt($('input.slider#voltage').val());
   let enabled = $('#voltage-toggle .button-icon').hasClass('toggle');
-  let reverse = true
+  let reverse = $('#polarity-toggle .button-icon').hasClass('toggle');
   let d = {
     enabled,
     reverse,
@@ -318,8 +325,59 @@ function updateEfield() {
   sim.updateEfield(d);
 }
 
-// put this into a function to toggle with spacebar
 $("#voltage-toggle.button-wrapper").on('click', (_e) => {
-  $(_e.currentTarget).find('.button-icon').toggleClass('toggle');
+  toggleVoltageIcon()
   updateEfield();
 });
+
+$("#polarity-toggle.button-wrapper").on('click', (_e) => {
+  togglePolarityIcon();
+  updateEfield();
+});
+
+function toggleVoltageIcon(_f) {
+  if (typeof _f !== 'undefined') {
+    if (_f) {
+      $('#voltage-toggle.button-wrapper').find('.button-icon').addClass('toggle');
+    } else {
+      $('#voltage-toggle.button-wrapper').find('.button-icon').removeClass('toggle');
+    }
+  } else {
+    $('#voltage-toggle.button-wrapper').find('.button-icon').toggleClass('toggle');
+  }
+}
+
+function togglePolarityIcon(_f) {
+  if (typeof _f !== 'undefined') {
+    if (_f) {
+      $('#polarity-toggle.button-wrapper').find('.button-icon').addClass('toggle');
+    } else {
+      $('#polarity-toggle.button-wrapper').find('.button-icon').removeClass('toggle');
+    }
+  } else {
+    $('#polarity-toggle.button-wrapper').find('.button-icon').toggleClass('toggle');
+  }
+}
+
+function setupCanvas(canvas) {
+  let dpi = window.devicePixelRatio || 1;
+  let border = canvas.getBoundingClientRect();
+  canvas.width = border.width * dpi;
+  canvas.height = border.height * dpi;
+  let ctx = canvas.getContext('2d');
+  ctx.scale(dpi, dpi);
+  console.log(ctx);
+  return ctx
+}
+
+module.exports.drawLoop = (_s) => {
+  if (!ctx) return;
+  const width = canvas.width;
+  const height = canvas.height;
+  ctx.fillStyle = '#fff';
+  ctx.strokeStyle = null;
+  ctx.fillRect(0, 0, width, height);
+  ctx.fillStyle = 'black';
+  let pos = Math.round(_s.droplet.pos * -500000) / 10
+  ctx.fillRect(width / 2, pos, 3, 3);
+}

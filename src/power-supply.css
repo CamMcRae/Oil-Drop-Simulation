@@ -11,38 +11,88 @@
   transform: translateY(-1px);
 }
 
+#voltage-toggle {
+  margin-left: 10px;
+}
+
 #voltage-toggle .button-icon {
-  -webkit-mask-image: url('../assets/download-button.svg');
+  -webkit-mask-image: url('../assets/power-button.svg');
   background-color: var(--accent-color-4);
-  animation: powerOff 200ms ease-in-out forwards;
+  animation: iconOn 200ms ease-in-out forwards;
   transition: all 200ms cubic-bezier(.25, .1, .25, 1);
 }
 
 #voltage-toggle .button-icon.toggle {
-  animation: powerOn 200ms ease-in-out forwards;
+  animation: iconOff 200ms ease-in-out forwards;
   background-color: var(--accent-color-2);
 }
 
-@keyframes powerOn {
+@keyframes iconOff {
   0% {
-    -webkit-mask-size: 50%;
+    -webkit-mask-size: var(--button-size);
   }
   50% {
     -webkit-mask-size: 0%;
   }
   100% {
-    -webkit-mask-size: 50%;
+    -webkit-mask-size: var(--button-size);
   }
 }
 
-@keyframes powerOff {
+@keyframes iconOn {
   100% {
-    -webkit-mask-size: 50%;
+    -webkit-mask-size: var(--button-size);
   }
   50% {
     -webkit-mask-size: 0%;
   }
   0% {
-    -webkit-mask-size: 50%;
+    -webkit-mask-size: var(--button-size);
   }
+}
+
+#polarity-toggle .button-icon {
+  -webkit-mask-size: 70%;
+  -webkit-mask-image: url('../assets/polarity-button.svg');
+  background-color: var(--container-color-light);
+  transition: all 200ms cubic-bezier(.25, .1, .25, 1);
+  transform: rotate(0deg);
+  background-color: var(--accent-color-4);
+}
+
+#polarity-toggle .button-icon.toggle {
+  transform: rotate(180deg);
+  background-color: var(--accent-color-2);
+}
+
+.voltage-reading {
+  display: inline-block;
+  width: 40%;
+  margin: 0;
+  position: relative;
+}
+
+.voltage-reading>* {
+  display: inline-block;
+}
+
+.voltage-reading p {
+  margin: 0;
+  color: var(--main-accent-color);
+}
+
+.voltage-display-text-wrapper {
+  width: 90%;
+}
+
+.voltage-reading .voltage-display-text {
+  font-size: 27px;
+  transform: translateY(-2px);
+  float: right;
+}
+
+.voltage-reading .voltage-display-units {
+  font-size: 24px;
+  position: absolute;
+  transform: translate(2px, 1px);
 }
