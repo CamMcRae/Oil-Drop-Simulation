@@ -308,7 +308,7 @@ $('input.slider#voltage').on('input', (e) => {
 
 function updateEfield() {
   let voltage = parseInt($('input.slider#voltage').val());
-  let enabled = true;
+  let enabled = $('#voltage-toggle .button-icon').hasClass('toggle');
   let reverse = true
   let d = {
     enabled,
@@ -317,3 +317,9 @@ function updateEfield() {
   }
   sim.updateEfield(d);
 }
+
+// put this into a function to toggle with spacebar
+$("#voltage-toggle.button-wrapper").on('click', (_e) => {
+  $(_e.currentTarget).find('.button-icon').toggleClass('toggle');
+  updateEfield();
+});

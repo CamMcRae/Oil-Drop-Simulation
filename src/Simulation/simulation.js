@@ -43,7 +43,7 @@ class Simulation {
   }
 
   spawnDrop() {
-    this.droplet = new Droplet(8.069e-7, 2, this);
+    this.droplet = new Droplet(this, 8.069e-7);
     this.time.reset();
   }
 

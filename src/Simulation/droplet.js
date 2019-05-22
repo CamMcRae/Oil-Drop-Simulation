@@ -1,14 +1,14 @@
 const constants = require('./constants.json');
 
 class Droplet {
-  constructor(_r, _c, _s) {
+  constructor(_s, _r, _c) {
     this.simulation = _s;
     this.radius = _r; // m
     this.density = constants.densityOil; // kg/m^3
     this.dragCoefficient = constants.dragCoefficientSphere;
     this.volume = 4 / 3 * Math.PI * Math.pow(this.radius, 3); // m^3
     this.mass = this.volume * this.density; // kg
-    this.charge = _c || Math.Floor(Math.random() * 10) + 1; // C, 1 - 10;
+    this.charge = _c || Math.floor(Math.random() * 10) + 1; // C, 1 - 10;
     this.area = Math.PI * this.radius * this.radius; // m^2
 
     console.log(this.mass)
@@ -34,7 +34,7 @@ class Droplet {
     this.vel = Math.sign(this.vel) * Math.min(this.vt, Math.abs(this.vel));
 
     this.pos += this.vel * (time.deltaTime / 1000);
-    // 
+    //
     // if (!isNaN(Fd)) {
     //   console.log("//////////////////////");
     //   console.log("VT: " + this.vt);

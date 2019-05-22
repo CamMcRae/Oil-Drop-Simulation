@@ -10,3 +10,39 @@
   position: relative;
   transform: translateY(-1px);
 }
+
+#voltage-toggle .button-icon {
+  -webkit-mask-image: url('../assets/download-button.svg');
+  background-color: var(--accent-color-4);
+  animation: powerOff 200ms ease-in-out forwards;
+  transition: all 200ms cubic-bezier(.25, .1, .25, 1);
+}
+
+#voltage-toggle .button-icon.toggle {
+  animation: powerOn 200ms ease-in-out forwards;
+  background-color: var(--accent-color-2);
+}
+
+@keyframes powerOn {
+  0% {
+    -webkit-mask-size: 50%;
+  }
+  50% {
+    -webkit-mask-size: 0%;
+  }
+  100% {
+    -webkit-mask-size: 50%;
+  }
+}
+
+@keyframes powerOff {
+  100% {
+    -webkit-mask-size: 50%;
+  }
+  50% {
+    -webkit-mask-size: 0%;
+  }
+  0% {
+    -webkit-mask-size: 50%;
+  }
+}

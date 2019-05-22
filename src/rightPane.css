@@ -1,4 +1,5 @@
 .right-pane {
   flex-grow: 1;
   margin-right: 65px;
+  min-width: 300px;
 }
