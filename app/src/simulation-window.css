@@ -1,9 +1,10 @@
 .main-sim-window {
   width: 100%;
-  height: calc(100% - 30px - 22px);
+  /* height: calc(100% - 30px - 22px); */
   background-color: #fff;
   margin-bottom: 22px;
   position: relative;
+  flex-grow: 1;
 }
 
 .sim-scale {

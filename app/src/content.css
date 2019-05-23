@@ -20,6 +20,10 @@ p.selectable {
   cursor: default !important;
 }
 
+.no-show {
+  display: none;
+}
+
 p.heading {
   font-size: 32px;
   line-height: 32px;
@@ -79,7 +83,7 @@ p.heading {
   margin-top: 12px;
   transform: translateY(-50%);
   background-color: var(--main-accent-color);
-  height: 4px;
+  height: 2px;
   border-radius: 2px;
   box-shadow: none;
   transition: all 200ms cubic-bezier(.25, .1, .25, 1);
@@ -96,7 +100,7 @@ input.slider {
 }
 
 .slider-wrapper:hover .slider-content, .slider-content.blur {
-  box-shadow: 0px 0px 15px 5px var(--main-accent-color-blur);
+  box-shadow: 0px 0px 10px 3px var(--main-accent-color-blur);
 }
 
 input.slider::-webkit-slider-thumb {
@@ -105,7 +109,6 @@ input.slider::-webkit-slider-thumb {
   width: 24px;
   height: 24px;
   -webkit-appearance: none;
-  background: #fff;
   border-radius: 4px;
   border: 11px var(--container-color-light) solid;
   border-top: 7px var(--container-color-light) solid;

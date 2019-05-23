@@ -47,7 +47,7 @@
     <div class="left-pane">
       <div class="main-sim-window">
         <canvas id="canvas"></canvas>
-        <div class="no-display" style="display:none;">
+        <div class="no-show">
           <div class="sim-scale">
           </div>
           <div class="oil-drop-track">
@@ -57,7 +57,7 @@
           </div>
         </div>
       </div>
-      <div class="plate-dist">
+      <div class="plate-dist no-show">
         <div class="plate-input-selector-wrapper">
           <div class="left arrow" onselectstart="return false">
             <</div>
@@ -78,7 +78,7 @@
             </div>
             <div class="slider-wrapper">
               <div class="slider-content">
-                <input id="time-step" class="slider" type="range" value="0" min="0" max="1000">
+                <input id="time-step" class="slider mousetrap" type="range" value="0" min="0" max="1000">
               </div>
             </div>
             <div class="slider-label-wrapper left">
@@ -130,7 +130,7 @@
           <div class="power-content">
             <div class="slider-wrapper">
               <div class="slider-content">
-                <input id="voltage" class="slider" type="range" value="0" min="0" max="100000">
+                <input id="voltage" class="slider mousetrap" type="range" value="0" min="0" max="100000">
               </div>
             </div>
             <div class="slider-label-wrapper left">
@@ -224,6 +224,12 @@
                 <p class="list-body constant selectable"></p>
                 <p class="list-body selectable">kg/(m·s)</p>
               </div>
+              <div class="list-element">
+                <p class="list-title">Tune Voltage</p>
+                <p class="list-body">Fine: Left</p>
+                <br>
+                <p class="list-body">Coarse: Ctrl+Left</p>
+              </div>
             </div>
           </div>
         </div>
@@ -251,10 +257,10 @@
             </div>
             <div class="trial-entries">
               <div class="trial-entry defaultConstructor">
-                <p class="number">1</p>
-                <p class="eField">2</p>
-                <p class="time">3</p>
-                <p class="distance">4</p>
+                <p class="number"></p>
+                <p class="eField"></p>
+                <p class="time"></p>
+                <p class="distance"></p>
                 <div class="remove-trial-wrapper">
                   <div class="remove-trial">
                     <div class="remove-trial-button-wrapper">

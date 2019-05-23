@@ -2,7 +2,7 @@
   "name": "oil-drop-simulation",
   "version": "1.0.0",
   "description": "A simulation based off of Millikan's Oil Drop Experiment",
-  "main": "electron-main.js",
+  "main": "./app/electron-main.js",
   "scripts": {
     "start": "electron ."
   },
@@ -10,12 +10,13 @@
   "license": "MIT",
   "dependencies": {
     "electron": "^5.0.1",
-    "electron-reload": "^1.4.0",
     "framesync": "^4.0.2",
     "jquery": "^3.4.0",
-    "jquery-ui": "^1.12.1",
     "mathjs": "^5.9.0",
-    "mousetrap": "^1.6.3",
-    "p5": "^0.8.0"
+    "mousetrap": "^1.6.3"
+  },
+  "devDependencies": {
+    "electron-packager": "^13.1.1",
+    "electron-reload": "^1.4.0"
   }
 }

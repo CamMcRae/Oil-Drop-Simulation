@@ -5,7 +5,6 @@ const Mousetrap = require('mousetrap');
 window.$ = window.jQuery = require('jquery');
 const constants = require('./simulation/constants.json');
 const math = require('mathjs');
-const p5 = require('p5');
 
 let canvas;
 let ctx;
@@ -14,6 +13,10 @@ let sim = require("./Simulation/main.js");
 sim.run();
 
 // Keyboard event listeners
+
+Mousetrap.stopCallback = () => {
+  return false;
+}
 
 Mousetrap.bind(["command+w", "ctrl+w"], () => {
   sendIPC('app-message', 'close-app');
@@ -39,11 +42,11 @@ Mousetrap.bind(['right'], () => {
   handleVoltageInput(50);
 });
 
-Mousetrap.bind(['ctrl+left'], () => {
+Mousetrap.bind(['ctrl+left', 'command+left'], () => {
   handleVoltageInput(-500);
 });
 
-Mousetrap.bind(['ctrl+right'], () => {
+Mousetrap.bind(['ctrl+right', 'command+left'], () => {
   handleVoltageInput(500);
 });
 
@@ -137,23 +140,17 @@ $('.right-slide-toggle').on('click', () => {
 // click listener for removing a trial
 $(document).on('click', '.remove-trial', (_e) => {
   let e = $(_e.target).parents('.trial-entry');
+  sim.removeTrial(e.find('.number').text() - 1);
   e.addClass('slide-remove');
+  updateTrialList();
   $(e).on('animationend', (t) => {
     e.remove();
-    updateTrialList();
   });
 });
 
-// adds a trial to the trials list
-function addTrialTest(i) {
-  let b = $('.trial-entries .trial-entry.defaultConstructor').clone();
-  $('.trial-entries').append(b.clone().removeClass('defaultConstructor'));
-  updateTrialList();
-}
-
 // updates numbering of trials
 function updateTrialList() {
-  let l = $('.trial-entries').children(":not(.defaultConstructor)");
+  let l = $('.trial-entries').children(":not(.defaultConstructor,.slide-remove)");
   for (let i = 0; i < l.length; i++) {
     let t = $(l[i]).find(".number");
     t.text(i + 1);
@@ -303,9 +300,9 @@ function toggleSim() {
 function addTrial(_t) {
   let b = $('.trial-entries .trial-entry.defaultConstructor').clone();
   let temp = b.clone().removeClass('defaultConstructor');
-  temp.find('.eField').text(_t.field);
+  temp.find('.eField').text((_t.field.reverse ? -1 : 1) * _t.field.voltage);
   temp.find('.time').text(Math.round(_t.time * 1000) / 1000);
-  temp.find('.distance').text(Math.round(_t.distance * 1000) / 1000);
+  temp.find('.distance').text(Math.round(_t.distance * 10000) / 100);
   $('.trial-entries').append(temp);
   updateTrialList();
 }
@@ -330,7 +327,7 @@ function updateVoltageDisplay(_v) {
 }
 
 function updateEfield(_v) {
-  let voltage = _v || parseInt($('input.slider#voltage').val() / 100);
+  let voltage = _v || parseFloat($('input.slider#voltage').val() / 100);
   let enabled = $('#voltage-toggle .button-icon').hasClass('toggle');
   let reverse = $('#polarity-toggle .button-icon').hasClass('toggle');
   let d = {
@@ -385,7 +382,8 @@ function setupCanvas(canvas) {
   return ctx;
 }
 
-const scaleSpacing = 50;
+// canvas scale variable
+const pxPerCm = 160;
 
 module.exports.drawLoop = (_s) => {
   if (!ctx) return;
@@ -395,21 +393,41 @@ module.exports.drawLoop = (_s) => {
   ctx.fillRect(0, 0, width, height);
   if (_s.droplet) {
     ctx.fillStyle = 'black';
-    let pos = Math.round(_s.droplet.pos * -500000) / 10
-    ctx.fillRect(width / 2, pos, 3, 3);
+    let posPx = -_s.droplet.pos * pxPerCm * 100;
+    ctx.fillRect(width / 2, posPx, 3, 3);
   }
   ctx.fillStyle = 'red';
   ctx.save();
   ctx.translate(width / 2 - 30, 30);
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 5; i++) {
     ctx.save();
-    ctx.translate(0, i * scaleSpacing);
-    ctx.fillRect(0, 0, i % 2 ? 30 : 40, 1);
-    for (let j = 0; j < 3; j++) {
-      ctx.translate(0, scaleSpacing / 4);
-      ctx.fillRect(0, 0, 20, 1);
+    ctx.translate(0, i * pxPerCm);
+    ctx.fillRect(0, 0, 40, 1);
+    for (let j = 0; j < 10; j++) {
+      ctx.translate(0, pxPerCm / 10);
+      ctx.fillRect(0, 0, j == 4 ? 30 : 20, 1);
     }
     ctx.restore();
   }
   ctx.restore();
+
+  ctx.fillStyle = '#000';
+  ctx.fillRect(50, 20, width - 100, 2);
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(50, height - 50, width - 100, 50);
+  ctx.fillStyle = '#000';
+  ctx.fillRect(50, height - 50, width - 100, 2);
+  // top sign convention
+  ctx.save();
+  ctx.translate(width - 20, 20);
+  ctx.fillRect(-8, -2, 14, 2);
+  if (!_s.eField.reverse) ctx.fillRect(-2, -8, 2, 14);
+  ctx.restore();
+  // bottom sign convention
+  ctx.save();
+  ctx.translate(width - 20, height - 50);
+  ctx.fillRect(-8, -2, 14, 2);
+  if (_s.eField.reverse) ctx.fillRect(-2, -8, 2, 14);
+  ctx.restore();
+
 }

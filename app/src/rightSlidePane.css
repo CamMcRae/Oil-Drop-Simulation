@@ -15,7 +15,7 @@
 }
 
 .right-slide-toggle-wrapper {
-  border-right: 2px solid var(--container-color);
+  border-right: 1px solid var(--body-color);
   position: absolute;
   height: 100%;
   background-color: var(--body-color-transparent);

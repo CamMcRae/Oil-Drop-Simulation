@@ -1,5 +1,6 @@
 class Trial {
-  constructor(droplet, _f, _t, _d) {
+  constructor(_n, droplet, _f, _t, _d) {
+    this.num = _n;
     this.charge = droplet.charge;
     this.mass = droplet.mass;
     this.field = _f;
@@ -8,8 +9,8 @@ class Trial {
     // append self to a json object
   }
 
-  formatRow(_n) {
-    return `${_n},${this.time},${this.distance}`
+  toString() {
+    return `${t.field.voltage},${this.time},${this.distance}\n`
   }
 }
 

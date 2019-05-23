@@ -46,7 +46,7 @@ module.exports.changeSeparation = (step) => {
 
 module.exports.getExportable = () => {
   if (!simulation) return;
-  return ("");
+  return simulation.getExportable();
 }
 
 module.exports.toggleTime = () => {
@@ -74,4 +74,9 @@ module.exports.toggleSim = (_b) => {
 module.exports.updateEfield = (_d) => {
   if (!simulation) return;
   simulation.updateEfield(_d);
+}
+
+module.exports.removeTrial = (_n) => {
+  if (!simulation) return;
+  simulation.removeTrial(_n);
 }

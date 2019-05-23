@@ -113,6 +113,18 @@
   }
 }
 
+.trial-entry .eField:after {
+  content: " V";
+}
+
+.trial-entry .time:after {
+  content: " s";
+}
+
+.trial-entry .distance:after {
+  content: " cm";
+}
+
 .trial-entries {
   margin-right: 1px;
   width: calc(100%-1px);

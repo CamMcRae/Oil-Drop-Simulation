@@ -6,6 +6,7 @@ const renderer = require('../renderer-main.js');
 
 class Simulation {
   constructor() {
+    this.trials = [];
     this.gField = constants.gravity;
     this.eField = {
       enabled: true,
@@ -46,7 +47,7 @@ class Simulation {
 
   // creates a new droplet
   spawnDrop() {
-    this.droplet = new Droplet(this, 8.069e-7, 6.31e-19);
+    this.droplet = new Droplet(this);
     this.time.reset();
   }
 
@@ -59,8 +60,10 @@ class Simulation {
     } else { // end trial
       this.time.stop();
       this.trial.end.pos = this.droplet.pos;
-      let distance = this.trial.end.pos - this.trial.start.pos
-      return new Trial(this.droplet, this.eField.magnitude, this.time.getTotal() / 1000, distance);
+      let distance = this.trial.start.pos - this.trial.end.pos;
+      let trial = new Trial(this.trials.length, this.droplet, this.eField, this.time.getTotal() / 1000, distance);
+      this.trials.push(trial);
+      return trial;
     }
   }
 
@@ -70,7 +73,7 @@ class Simulation {
       this.eField = {
         enabled: _d.enabled,
         reverse: _d.reverse,
-        voltage: _d.votage,
+        voltage: _d.voltage,
         magnitude: _d.voltage / this.separation
       };
     } else {
@@ -78,6 +81,17 @@ class Simulation {
     }
     this.eField.vector = this.eField.magnitude * (this.eField.reverse ? -1 : 1) * (this.eField.enabled ? 1 : 0);
     this.droplet.newConstants(this.eField);
+  }
+
+  getExportable() {
+    let res = "";
+    for (let t of this.trials) {
+      res += t.toString();
+    }
+  }
+
+  removeTrial(_n) {
+    this.trials.splice(_n, 1);
   }
 }
 
