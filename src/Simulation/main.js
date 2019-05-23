@@ -7,10 +7,12 @@ const renderer = require('../renderer-main.js');
 
 let simulation;
 
+// begins simulation
 module.exports.run = () => {
 
   simulation = new sim();
 
+  // main animation loop
   sync.default.update(({
     delta,
     timestamp
@@ -64,9 +66,9 @@ module.exports.setSpeed = (_s) => {
   simulation.time.speed = Math.floor(_s);
 }
 
-module.exports.toggleSim = () => {
+module.exports.toggleSim = (_b) => {
   if (!simulation) return;
-  return simulation.toggleSim();
+  return simulation.toggleSim(_b);
 }
 
 module.exports.updateEfield = (_d) => {

@@ -11,7 +11,8 @@ class Simulation {
       enabled: true,
       reverse: false,
       voltage: 0,
-      magnitude: 0
+      magnitude: 0,
+      vector: 0
     };
     this.separation = constants.defaultSeparation;
     this.pAir = constants.permeabilityAir;
@@ -30,11 +31,11 @@ class Simulation {
     }
   }
 
+  // main simulation update loop
   update(time) {
     this.time.update(time);
     if (this.droplet) {
       this.droplet.update(this.time);
-      renderer.updateDrop(this.droplet);
       // if droplet is off the screen
       // if (this.droplet.pos > 0 || this.droplet.pos < -100) {
       //   this.droplet = null;
@@ -43,19 +44,15 @@ class Simulation {
     renderer.updateTime(this.time);
   }
 
+  // creates a new droplet
   spawnDrop() {
-    this.droplet = new Droplet(this, 8.069e-7);
+    this.droplet = new Droplet(this, 8.069e-7, 6.31e-19);
     this.time.reset();
   }
 
-  test() {
-    this.time.getTotal();
-  }
-
   // toggle the simulation with spacebar
-  toggleSim() {
-    this.eField.enabled = !this.eField.enabled;
-    if (!this.eField.enabled) { // disable field and let droplet fall
+  toggleSim(_b) {
+    if (_b) { // start trial
       this.trial.start.pos = this.droplet.pos;
       this.time.reset();
       this.time.start();
@@ -67,6 +64,7 @@ class Simulation {
     }
   }
 
+  // updates the electric field
   updateEfield(_d) {
     if (_d) {
       this.eField = {
@@ -78,6 +76,7 @@ class Simulation {
     } else {
       this.eField.magnitude = this.voltage / this.separation
     }
+    this.eField.vector = this.eField.magnitude * (this.eField.reverse ? -1 : 1) * (this.eField.enabled ? 1 : 0);
     this.droplet.newConstants(this.eField);
   }
 }

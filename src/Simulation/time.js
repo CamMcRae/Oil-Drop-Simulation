@@ -8,7 +8,7 @@ class Timer {
   update(_t) {
     this.deltaTime = _t.deltaTime;
     if (!this.paused) {
-      this.total += this.deltaTime * this.speed
+      this.total += this.deltaTime;
     }
   }
 

@@ -15,16 +15,8 @@ sim.run();
 
 // Keyboard event listeners
 
-Mousetrap.bind(["ctrl+l"], () => {
-  $('.right-slide-pane').toggleClass('expand');
-});
-
 Mousetrap.bind(["command+w", "ctrl+w"], () => {
   sendIPC('app-message', 'close-app');
-});
-
-Mousetrap.bind(["command+r", "ctrl+r"], () => {
-  sendIPC('app-message', 'reload-app');
 });
 
 Mousetrap.bind(["command+s", 'ctrl+s'], () => {
@@ -37,6 +29,22 @@ Mousetrap.bind(['space'], () => {
 
 Mousetrap.bind(['r'], () => {
   resetTime();
+});
+
+Mousetrap.bind(['left'], () => {
+  handleVoltageInput(-50);
+});
+
+Mousetrap.bind(['right'], () => {
+  handleVoltageInput(50);
+});
+
+Mousetrap.bind(['ctrl+left'], () => {
+  handleVoltageInput(-500);
+});
+
+Mousetrap.bind(['ctrl+right'], () => {
+  handleVoltageInput(500);
 });
 
 // Application header event listeners
@@ -71,6 +79,11 @@ $(document).ready(() => {
   $('#nConst.list-element .list-body')[0].innerHTML = constants.permeabilityAirSci.str + `<sup>${constants.permeabilityAirSci.exp}</sup>`;
   canvas = document.getElementById("canvas");
   ctx = setupCanvas(canvas);
+  window.addEventListener('keydown', (e) => {
+    if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+      e.preventDefault();
+    }
+  }, false);
 });
 
 $('span.dynamic').on('click', (_e) => {
@@ -248,13 +261,16 @@ $('.stopwatch-toggle').on('click', () => {
 });
 
 // toggles the main timer
-function toggleTime() {
+function toggleTime(_b) {
   let e = $('.stopwatch-toggle');
-  sim.toggleTime();
-  if (e.hasClass('stop')) {
-    e.removeClass('stop');
+  if (typeof _b != 'undefined') {
+    if (!_b) {
+      e.removeClass('stop');
+    } else {
+      e.addClass('stop');
+    }
   } else {
-    e.addClass('stop');
+    e.toggleClass('stop')
   }
 }
 
@@ -277,19 +293,11 @@ let on = false;
 function toggleSim() {
   on = !on;
   toggleVoltageIcon(false);
-  toggleTime();
-  let t = sim.toggleSim();
+  updateEfield();
+  toggleTime(on);
+  let t = sim.toggleSim(on);
   if (t) addTrial(t);
 }
-
-// updates the position of the droplet
-module.exports.updateDrop = (_d) => {
-  if (!_d) return;
-  // console.log(_d);
-  // $('.oil-drop').css({
-  //   'transform': 'translateY(' + _d.pos + ')'
-  // });
-};
 
 // adds a trial to the trials pane
 function addTrial(_t) {
@@ -303,18 +311,26 @@ function addTrial(_t) {
 }
 
 // listens for the voltage slider to move and updates the simulation accordingly
-$('input.slider#voltage').on('input', (_e) => {
-  updateVoltageDisplay(_e);
-  updateEfield();
+$('input.slider#voltage').on('input', () => {
+  handleVoltageInput();
 });
 
-function updateVoltageDisplay(_e) {
-  let v = $(_e.currentTarget).val();
-  $('.voltage-display-text').text(v);
+function handleVoltageInput(_d) {
+  let e = $('input.slider#voltage');
+  if (typeof _d != 'undefined') {
+    e.val(parseInt(e.val()) + _d);
+  }
+  let v = parseInt(e.val()) / 100
+  updateVoltageDisplay(v);
+  updateEfield(v);
 }
 
-function updateEfield() {
-  let voltage = parseInt($('input.slider#voltage').val());
+function updateVoltageDisplay(_v) {
+  $('.voltage-display-text').text(_v);
+}
+
+function updateEfield(_v) {
+  let voltage = _v || parseInt($('input.slider#voltage').val() / 100);
   let enabled = $('#voltage-toggle .button-icon').hasClass('toggle');
   let reverse = $('#polarity-toggle .button-icon').hasClass('toggle');
   let d = {
@@ -366,18 +382,34 @@ function setupCanvas(canvas) {
   canvas.height = border.height * dpi;
   let ctx = canvas.getContext('2d');
   ctx.scale(dpi, dpi);
-  console.log(ctx);
-  return ctx
+  return ctx;
 }
+
+const scaleSpacing = 50;
 
 module.exports.drawLoop = (_s) => {
   if (!ctx) return;
   const width = canvas.width;
   const height = canvas.height;
   ctx.fillStyle = '#fff';
-  ctx.strokeStyle = null;
   ctx.fillRect(0, 0, width, height);
-  ctx.fillStyle = 'black';
-  let pos = Math.round(_s.droplet.pos * -500000) / 10
-  ctx.fillRect(width / 2, pos, 3, 3);
+  if (_s.droplet) {
+    ctx.fillStyle = 'black';
+    let pos = Math.round(_s.droplet.pos * -500000) / 10
+    ctx.fillRect(width / 2, pos, 3, 3);
+  }
+  ctx.fillStyle = 'red';
+  ctx.save();
+  ctx.translate(width / 2 - 30, 30);
+  for (let i = 0; i < 8; i++) {
+    ctx.save();
+    ctx.translate(0, i * scaleSpacing);
+    ctx.fillRect(0, 0, i % 2 ? 30 : 40, 1);
+    for (let j = 0; j < 3; j++) {
+      ctx.translate(0, scaleSpacing / 4);
+      ctx.fillRect(0, 0, 20, 1);
+    }
+    ctx.restore();
+  }
+  ctx.restore();
 }
