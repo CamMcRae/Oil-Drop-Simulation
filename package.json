@@ -2,21 +2,29 @@
   "name": "oil-drop-simulation",
   "version": "1.0.0",
   "description": "A simulation based off of Millikan's Oil Drop Experiment",
+  "productName": "Millikan Simulation",
   "main": "./app/electron-main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "build"
   },
   "author": "Cameron McRae",
   "license": "MIT",
   "dependencies": {
-    "electron": "^5.0.1",
     "framesync": "^4.0.2",
     "jquery": "^3.4.0",
     "mathjs": "^5.9.0",
-    "mousetrap": "^1.6.3"
+    "mousetrap": "^1.6.3",
+    "electron-reload": "^1.4.0"
   },
   "devDependencies": {
-    "electron-packager": "^13.1.1",
-    "electron-reload": "^1.4.0"
+    "electron": "^5.0.1",
+    "electron-builder": "^20.40.2"
+  },
+  "build": {
+    "appId": "Millikan-Oil-Simulation",
+    "win": {
+      "target": "nsis"
+    }
   }
 }
