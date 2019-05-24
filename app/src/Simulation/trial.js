@@ -10,7 +10,7 @@ class Trial {
   }
 
   toString() {
-    return `${t.field.voltage},${this.time},${this.distance}\n`
+    return `${this.field.voltage},${this.time},${this.distance}`
   }
 }
 

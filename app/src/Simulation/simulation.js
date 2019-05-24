@@ -1,4 +1,4 @@
-const constants = require('./constants.js').get();
+const constants = require('./constants.json');
 const Timer = require('./time.js')
 const Droplet = require('./droplet.js');
 const Trial = require('./trial.js');
@@ -84,10 +84,12 @@ class Simulation {
   }
 
   getExportable() {
-    let res = "";
+    let res = "Voltage(V),Time(s), Distance(m)\n";
     for (let t of this.trials) {
       res += t.toString();
+      res += '\n'
     }
+    return res;
   }
 
   removeTrial(_n) {

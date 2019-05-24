@@ -3,7 +3,7 @@ const {
 } = require('electron');
 const Mousetrap = require('mousetrap');
 window.$ = window.jQuery = require('jquery');
-const constants = require('./Simulation/constants.js').get();
+const constants = require('./Simulation/constants.json');
 const math = require('mathjs');
 
 let canvas;
@@ -12,8 +12,7 @@ let ctx;
 let sim = require("./Simulation/main.js");
 sim.run();
 
-// Keyboard event listeners
-
+// Mousetrap is a package that manages keyboard event listeners
 Mousetrap.stopCallback = () => {
   return false;
 }
@@ -23,7 +22,7 @@ Mousetrap.bind(["command+w", "ctrl+w"], () => {
 });
 
 Mousetrap.bind(["command+s", 'ctrl+s'], () => {
-  sendIPC('file-output', '00, 01, 02\n10,11,12');
+  sendIPC('file-output', sim.getExportable());
 });
 
 Mousetrap.bind(['space'], () => {
@@ -82,54 +81,12 @@ $(document).ready(() => {
   $('#nConst.list-element .list-body')[0].innerHTML = constants.permeabilityAirSci.str + `<sup>${constants.permeabilityAirSci.exp}</sup>`;
   canvas = document.getElementById("canvas");
   ctx = setupCanvas(canvas);
+  // prevents arrow keys from acting on their own
   window.addEventListener('keydown', (e) => {
     if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
       e.preventDefault();
     }
   }, false);
-});
-
-$('span.dynamic').on('click', (_e) => {
-  let e = $(_e.target);
-  $(e).addClass('editing');
-  $(e).attr('contentEditable', true);
-  $(e).focus();
-});
-
-$('span.dynamic').on('blur', (_e) => {
-  let e = $(_e.target);
-  $(e).removeClass('editing');
-  $(e).attr('contentEditable', false);
-  let c = $(e).text();
-
-  let v = sim.getSeparation();
-  if (isNaN(c) || c == "") {
-    $(e).text(v);
-  } else {
-    c = math.round(parseFloat(c), 3);
-    sim.setSeparation(c);
-    $(e).text(c);
-  }
-});
-
-$('span.dynamic').on('keypress', (e) => {
-  if (e.which == 13) $('span.dynamic').trigger('blur');
-});
-
-$('.plate-input-selector-wrapper .arrow').on('click', (_e) => {
-  let e = $(_e.target);
-  if (e.hasClass('editing')) return;
-  if (e.hasClass('right')) {
-    // increase distance
-    sim.changeSeparation(+0.001);
-  } else {
-    // decrease distance
-    sim.changeSeparation(-0.001);
-  }
-  let v = sim.getSeparation();
-  if (math.mod(v, 0.01) == 0) v = v.toString() + "0";
-  $('span.dynamic.plate-input-wrapper').text(v);
-  updateEfield();
 });
 
 // event listener for right toggle
@@ -284,9 +241,8 @@ function resetTime() {
   });
 }
 
-// toggles the simulation on and off
 let on = false;
-
+// toggles the simulation on and off
 function toggleSim() {
   on = !on;
   toggleVoltageIcon(false);
@@ -300,7 +256,7 @@ function toggleSim() {
 function addTrial(_t) {
   let b = $('.trial-entries .trial-entry.defaultConstructor').clone();
   let temp = b.clone().removeClass('defaultConstructor');
-  temp.find('.eField').text((_t.field.reverse ? -1 : 1) * _t.field.voltage);
+  temp.find('.eField').text(_t.field.voltage);
   temp.find('.time').text(Math.round(_t.time * 1000) / 1000);
   temp.find('.distance').text(Math.round(_t.distance * 10000) / 100);
   $('.trial-entries').append(temp);
@@ -378,8 +334,52 @@ function togglePolarityIcon(_f) {
   }
 }
 
+// add droplet button event listener
 $('#new-drop').on('click', () => {
   sim.newDrop();
+});
+
+$('span.dynamic').on('click', (_e) => {
+  let e = $(_e.target);
+  $(e).addClass('editing');
+  $(e).attr('contentEditable', true);
+  $(e).focus();
+});
+
+$('span.dynamic').on('blur', (_e) => {
+  let e = $(_e.target);
+  $(e).removeClass('editing');
+  $(e).attr('contentEditable', false);
+  let c = $(e).text();
+
+  let v = sim.getSeparation();
+  if (isNaN(c) || c == "") {
+    $(e).text(v);
+  } else {
+    c = math.round(parseFloat(c), 3);
+    sim.setSeparation(c);
+    $(e).text(c);
+  }
+});
+
+$('span.dynamic').on('keypress', (e) => {
+  if (e.which == 13) $('span.dynamic').trigger('blur');
+});
+
+$('.plate-input-selector-wrapper .arrow').on('click', (_e) => {
+  let e = $(_e.target);
+  if (e.hasClass('editing')) return;
+  if (e.hasClass('right')) {
+    // increase distance
+    sim.changeSeparation(+0.001);
+  } else {
+    // decrease distance
+    sim.changeSeparation(-0.001);
+  }
+  let v = sim.getSeparation();
+  if (math.mod(v, 0.01) == 0) v = v.toString() + "0";
+  $('span.dynamic.plate-input-wrapper').text(v);
+  updateEfield();
 });
 
 // sets canvas up for screen
@@ -401,27 +401,34 @@ module.exports.drawLoop = (_s) => {
   if (!ctx) return;
   const width = canvas.width;
   const height = canvas.height;
+  // draws background
   ctx.fillStyle = '#fff';
   ctx.fillRect(0, 0, width, height);
+
+  ctx.save()
+  ctx.translate(0, 30);
+
+  // draws droplet
   if (_s.droplet) {
     ctx.fillStyle = 'black';
-    let posPx = -_s.droplet.pos * pxPerCm * 100 + 25;
+    let posPx = -_s.droplet.pos * pxPerCm * 100 + 5;
     ctx.fillRect(width / 2, posPx, 3, 3);
   }
 
+  // draws parrallel plates
   ctx.fillStyle = '#000';
-  ctx.fillRect(50, 20, width - 100, 2);
+  ctx.fillRect(50, -1, width - 100, 2);
   ctx.fillStyle = '#000';
-  ctx.fillRect(50, height - 85, width - 100, 2);
+  ctx.fillRect(50, pxPerCm * 2.5, width - 100, 2);
   // top sign convention
   ctx.save();
-  ctx.translate(width - 20, 20);
+  ctx.translate(width - 20, 0);
   ctx.fillRect(-8, -2, 14, 2);
   if (!_s.eField.reverse) ctx.fillRect(-2, -8, 2, 14);
   ctx.restore();
   // bottom sign convention
   ctx.save();
-  ctx.translate(width - 20, height - 50);
+  ctx.translate(width - 20, pxPerCm * 2.5);
   ctx.fillRect(-8, -2, 14, 2);
   if (_s.eField.reverse) ctx.fillRect(-2, -8, 2, 14);
   ctx.restore();
@@ -429,7 +436,7 @@ module.exports.drawLoop = (_s) => {
   // draws red scale lines
   ctx.fillStyle = 'red';
   ctx.save();
-  ctx.translate(width / 2 - 30, 21);
+  ctx.translate(width / 2 - 30, 0);
   for (let i = 0; i < 5; i++) {
     ctx.save();
     ctx.translate(0, i * pxPerCm);
@@ -441,5 +448,9 @@ module.exports.drawLoop = (_s) => {
     ctx.restore();
   }
   ctx.restore();
+  // removes extra scale lines
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, pxPerCm * 2.5 + 2, width - 30, 100);
 
+  ctx.restore();
 }

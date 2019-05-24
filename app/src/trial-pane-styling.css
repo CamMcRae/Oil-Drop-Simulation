@@ -4,6 +4,7 @@
   display: flex;
   --trial-pane-header-height: 72px;
   height: var(--trial-pane-header-height);
+  position: relative;
 }
 
 .trial-pane-header-wrapper>* {
@@ -13,6 +14,15 @@
 .trial-pane-header-wrapper>p {
   margin: 20px;
   float: left;
+}
+
+.trial-pane-header-wrapper .disclaimer {
+  margin: 0;
+  position: absolute;
+  color: #fff;
+  font-size: 10px;
+  left: 20px;
+  top: 50px;
 }
 
 .export-trials-content-wrapper {

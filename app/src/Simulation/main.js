@@ -1,5 +1,5 @@
 const sync = require('framesync');
-const constants = require('./constants.js').get();
+const constants = require('./constants.json');
 const sim = require('./simulation.js');
 const Mousetrap = require('mousetrap');
 const math = require('mathjs');

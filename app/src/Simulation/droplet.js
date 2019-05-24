@@ -1,4 +1,4 @@
-const constants = require('./constants.js').get();
+const constants = require('./constants.json');
 
 class Droplet {
   constructor(_s, _r, _c) {

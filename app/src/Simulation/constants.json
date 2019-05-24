@@ -1,4 +1,4 @@
-const constants = {
+{
   "gravity": 9.80665,
   "permeabilityAir": 0.0000181,
   "densityAir": 1.225,
@@ -11,8 +11,4 @@ const constants = {
   "defaultSeparation": 0.025,
   "defaultListHTML": "",
   "fundamentalCharge": 1.602176634e-19
-}
-
-module.exports.get = () => {
-  return constants;
 }
