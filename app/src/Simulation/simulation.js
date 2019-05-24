@@ -1,4 +1,4 @@
-const constants = require('./constants.json');
+const constants = require('./constants.js').get();
 const Timer = require('./time.js')
 const Droplet = require('./droplet.js');
 const Trial = require('./trial.js');
@@ -38,7 +38,7 @@ class Simulation {
     if (this.droplet) {
       this.droplet.update(this.time);
       // if droplet is off the screen
-      // if (this.droplet.pos > 0 || this.droplet.pos < -100) {
+      // if (this.droplet.pos > 0.0005 || this.droplet.pos < -0.0035) {
       //   this.droplet = null;
       // }
     }

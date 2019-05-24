@@ -9,9 +9,11 @@ const path = require('path');
 const url = require('url');
 const fs = require('fs');
 require('electron-reload')(__dirname);
+const isDev = require('electron-is-dev');
 
 let win;
 
+// sets up program window
 function createWindow() {
   win = new BrowserWindow({
     width: 800,
@@ -28,6 +30,7 @@ function createWindow() {
   // removes a secondary menu at the top
   win.setMenu(null)
 
+  // loads renderer page
   win.loadURL(url.format({
     pathname: path.join(__dirname, 'src/main.html'),
     protocol: 'file:',
@@ -35,19 +38,17 @@ function createWindow() {
   }))
 
   // shows devtools
-  win.webContents.openDevTools();
+  if (isDev) {
+    win.webContents.openDevTools();
+  }
 
   // force closes on close
   win.on('closed', () => {
     win = null
   })
-
-  // allows Ctrl+W to close window
-  // globalShortcut.register('CommandOrControl+W', () => {
-  //   app.quit();
-  // })
 }
 
+// event listeners to load window
 app.on('ready', createWindow);
 
 app.on('activate', () => {
@@ -91,7 +92,6 @@ ipcMain.on('app-message', (event, arg) => {
 
 // attempts to save a file
 ipcMain.on('file-output', (event, arg) => {
-  console.log("DSAD")
   dialog.showSaveDialog({
     defaultPath: '~/millikanData.csv',
     filters: [{

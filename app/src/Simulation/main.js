@@ -1,5 +1,5 @@
 const sync = require('framesync');
-const constants = require('./constants.json');
+const constants = require('./constants.js').get();
 const sim = require('./simulation.js');
 const Mousetrap = require('mousetrap');
 const math = require('mathjs');
@@ -17,6 +17,7 @@ module.exports.run = () => {
     delta,
     timestamp
   }) => {
+    // packages time arguments into an object
     const time = {
       deltaTime: delta,
       time: timestamp
@@ -28,20 +29,12 @@ module.exports.run = () => {
   }, true);
 };
 
-module.exports.getSeparation = () => {
-  if (simulation) return simulation.separation;
-}
+// encapsulation methods that retrieve information from
+// the simulation and pass to the renderer
 
-module.exports.setSeparation = (_v) => {
+module.exports.newDrop = () => {
   if (!simulation) return;
-  simulation.separation = _v;
-  simulation.updateEfield();
-}
-
-module.exports.changeSeparation = (step) => {
-  if (!simulation) return;
-  simulation.separation = math.round(math.add(simulation.separation, step), 3);
-  simulation.updateEfield(_d);
+  simulation.spawnDrop();
 }
 
 module.exports.getExportable = () => {
@@ -79,4 +72,26 @@ module.exports.updateEfield = (_d) => {
 module.exports.removeTrial = (_n) => {
   if (!simulation) return;
   simulation.removeTrial(_n);
+}
+
+module.exports.getSim = () => {
+  if (!simulation) return;
+  return simulation;
+};
+
+
+module.exports.getSeparation = () => {
+  if (simulation) return simulation.separation;
+}
+
+module.exports.setSeparation = (_v) => {
+  if (!simulation) return;
+  simulation.separation = _v;
+  simulation.updateEfield();
+}
+
+module.exports.changeSeparation = (step) => {
+  if (!simulation) return;
+  simulation.separation = math.round(math.add(simulation.separation, step), 3);
+  simulation.updateEfield(_d);
 }

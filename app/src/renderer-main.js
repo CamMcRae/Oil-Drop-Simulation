@@ -3,7 +3,7 @@ const {
 } = require('electron');
 const Mousetrap = require('mousetrap');
 window.$ = window.jQuery = require('jquery');
-const constants = require('./simulation/constants.json');
+const constants = require('./Simulation/constants.js').get();
 const math = require('mathjs');
 
 let canvas;
@@ -312,6 +312,7 @@ $('input.slider#voltage').on('input', () => {
   handleVoltageInput();
 });
 
+// handles the input for changing voltage, slider and key events
 function handleVoltageInput(_d) {
   let e = $('input.slider#voltage');
   if (typeof _d != 'undefined') {
@@ -322,10 +323,12 @@ function handleVoltageInput(_d) {
   updateEfield(v);
 }
 
+// updates the voltage display
 function updateVoltageDisplay(_v) {
   $('.voltage-display-text').text(_v);
 }
 
+// reads all elements for their content and sends it to the simulation
 function updateEfield(_v) {
   let voltage = _v || parseFloat($('input.slider#voltage').val() / 100);
   let enabled = $('#voltage-toggle .button-icon').hasClass('toggle');
@@ -338,6 +341,7 @@ function updateEfield(_v) {
   sim.updateEfield(d);
 }
 
+// power supply event listeners
 $("#voltage-toggle.button-wrapper").on('click', (_e) => {
   toggleVoltageIcon()
   updateEfield();
@@ -348,6 +352,7 @@ $("#polarity-toggle.button-wrapper").on('click', (_e) => {
   updateEfield();
 });
 
+// swaps voltage power icon
 function toggleVoltageIcon(_f) {
   if (typeof _f !== 'undefined') {
     if (_f) {
@@ -360,6 +365,7 @@ function toggleVoltageIcon(_f) {
   }
 }
 
+// swaps polarity icon
 function togglePolarityIcon(_f) {
   if (typeof _f !== 'undefined') {
     if (_f) {
@@ -372,6 +378,11 @@ function togglePolarityIcon(_f) {
   }
 }
 
+$('#new-drop').on('click', () => {
+  sim.newDrop();
+});
+
+// sets canvas up for screen
 function setupCanvas(canvas) {
   let dpi = window.devicePixelRatio || 1;
   let border = canvas.getBoundingClientRect();
@@ -385,6 +396,7 @@ function setupCanvas(canvas) {
 // canvas scale variable
 const pxPerCm = 160;
 
+// canvas animation loop
 module.exports.drawLoop = (_s) => {
   if (!ctx) return;
   const width = canvas.width;
@@ -393,30 +405,14 @@ module.exports.drawLoop = (_s) => {
   ctx.fillRect(0, 0, width, height);
   if (_s.droplet) {
     ctx.fillStyle = 'black';
-    let posPx = -_s.droplet.pos * pxPerCm * 100;
+    let posPx = -_s.droplet.pos * pxPerCm * 100 + 25;
     ctx.fillRect(width / 2, posPx, 3, 3);
   }
-  ctx.fillStyle = 'red';
-  ctx.save();
-  ctx.translate(width / 2 - 30, 30);
-  for (let i = 0; i < 5; i++) {
-    ctx.save();
-    ctx.translate(0, i * pxPerCm);
-    ctx.fillRect(0, 0, 40, 1);
-    for (let j = 0; j < 10; j++) {
-      ctx.translate(0, pxPerCm / 10);
-      ctx.fillRect(0, 0, j == 4 ? 30 : 20, 1);
-    }
-    ctx.restore();
-  }
-  ctx.restore();
 
   ctx.fillStyle = '#000';
   ctx.fillRect(50, 20, width - 100, 2);
-  ctx.fillStyle = '#fff';
-  ctx.fillRect(50, height - 50, width - 100, 50);
   ctx.fillStyle = '#000';
-  ctx.fillRect(50, height - 50, width - 100, 2);
+  ctx.fillRect(50, height - 85, width - 100, 2);
   // top sign convention
   ctx.save();
   ctx.translate(width - 20, 20);
@@ -428,6 +424,22 @@ module.exports.drawLoop = (_s) => {
   ctx.translate(width - 20, height - 50);
   ctx.fillRect(-8, -2, 14, 2);
   if (_s.eField.reverse) ctx.fillRect(-2, -8, 2, 14);
+  ctx.restore();
+
+  // draws red scale lines
+  ctx.fillStyle = 'red';
+  ctx.save();
+  ctx.translate(width / 2 - 30, 21);
+  for (let i = 0; i < 5; i++) {
+    ctx.save();
+    ctx.translate(0, i * pxPerCm);
+    ctx.fillRect(0, 0, 40, 1);
+    for (let j = 0; j < 10; j++) {
+      ctx.translate(0, pxPerCm / 10);
+      ctx.fillRect(0, 0, j == 4 ? 30 : 20, 1);
+    }
+    ctx.restore();
+  }
   ctx.restore();
 
 }
