@@ -335,51 +335,8 @@ function togglePolarityIcon(_f) {
 }
 
 // add droplet button event listener
-$('#new-drop').on('click', () => {
+$('#new-drop').click(() => {
   sim.newDrop();
-});
-
-$('span.dynamic').on('click', (_e) => {
-  let e = $(_e.target);
-  $(e).addClass('editing');
-  $(e).attr('contentEditable', true);
-  $(e).focus();
-});
-
-$('span.dynamic').on('blur', (_e) => {
-  let e = $(_e.target);
-  $(e).removeClass('editing');
-  $(e).attr('contentEditable', false);
-  let c = $(e).text();
-
-  let v = sim.getSeparation();
-  if (isNaN(c) || c == "") {
-    $(e).text(v);
-  } else {
-    c = math.round(parseFloat(c), 3);
-    sim.setSeparation(c);
-    $(e).text(c);
-  }
-});
-
-$('span.dynamic').on('keypress', (e) => {
-  if (e.which == 13) $('span.dynamic').trigger('blur');
-});
-
-$('.plate-input-selector-wrapper .arrow').on('click', (_e) => {
-  let e = $(_e.target);
-  if (e.hasClass('editing')) return;
-  if (e.hasClass('right')) {
-    // increase distance
-    sim.changeSeparation(+0.001);
-  } else {
-    // decrease distance
-    sim.changeSeparation(-0.001);
-  }
-  let v = sim.getSeparation();
-  if (math.mod(v, 0.01) == 0) v = v.toString() + "0";
-  $('span.dynamic.plate-input-wrapper').text(v);
-  updateEfield();
 });
 
 // sets canvas up for screen
@@ -449,8 +406,8 @@ module.exports.drawLoop = (_s) => {
   }
   ctx.restore();
   // removes extra scale lines
-  ctx.fillStyle = '#fff';
-  ctx.fillRect(0, pxPerCm * 2.5 + 2, width - 30, 100);
+  // ctx.fillStyle = '#fff';
+  // ctx.fillRect(0, pxPerCm * 2.5 + 2, width - 30, 100);
 
   ctx.restore();
 }

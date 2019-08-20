@@ -1,0 +1,17 @@
+.icon.distance {
+  -webkit-mask-image: url("../assets/plate-distance.svg");
+  background-color: var(--main-accent-color);
+  position: relative;
+  transform: translateY(0px) scale(1.2);
+}
+
+.distance-content-wrapper {
+  border-top: 1px solid var(--container-color);
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.distance-reading {
+  text-align: center;
+  transform: translateX(-7px);
+}

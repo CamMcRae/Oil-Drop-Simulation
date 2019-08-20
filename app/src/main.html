@@ -13,6 +13,7 @@
   <link rel="stylesheet" type="text/css" href="./trial-pane-styling.css">
   <link rel="stylesheet" type="text/css" href="./stopwatch.css">
   <link rel="stylesheet" type="text/css" href="./power-supply.css">
+  <link rel="stylesheet" type="text/css" href="./distance.css">
   <link rel="stylesheet" type="text/css" href="./timestep.css">
   <link rel="stylesheet" type="text/css" href="./simulation-window.css">
 </head>
@@ -47,250 +48,259 @@
     <div class="left-pane">
       <div class="main-sim-window">
         <canvas id="canvas"></canvas>
-        <div class="no-show">
-          <div class="sim-scale">
+      </div>
+      <div id="new-drop" class="button-wrapper">
+        <div class="button-content">
+          <p class="button-name"> Add Droplet</p>
+        </div>
+      </div>
+    </div>
+    <!-- Right Side of Screen -->
+    <div class="right-pane">
+      <div class="time-slider-content-wrapper">
+        <div class="time-slider-content">
+          <div class="inline speed icon">
           </div>
-          <div class="oil-drop-track">
-            <div class="oil-drop-wrapper">
-              <p class="oil-drop">.</p>
+          <p class="heading">Time Step</p>
+          <div class="stop">
+          </div>
+          <div class="slider-wrapper">
+            <div class="slider-content">
+              <input id="time-step" class="slider mousetrap" type="range" value="0" min="0" max="1000">
+            </div>
+          </div>
+          <div class="slider-label-wrapper left">
+            <div class="slider-label-content">
+              <p class="slider-label">1</p>
+            </div>
+          </div>
+          <div class="slider-label-wrapper center">
+            <div class="slider-label-content">
+              <p class="slider-label">10</p>
+            </div>
+          </div>
+          <div class="slider-label-wrapper right">
+            <div class="slider-label-content">
+              <p class="slider-label">100</p>
             </div>
           </div>
         </div>
       </div>
-      <div class="plate-dist no-show">
-        <div class="plate-input-selector-wrapper">
-          <div class="left arrow" onselectstart="return false">
-            <</div>
-              <span class="plate-input-wrapper dynamic" onselectstart="return false">
-          </span>
-              <div class="right arrow" onselectstart="return false">></div>
-          </div>
+      <!-- Stopwatch -->
+      <div class="stopwatch-content-wrapper">
+        <div class="inline stopwatch icon">
         </div>
-      </div>
-      <!-- Right Side of Screen -->
-      <div class="right-pane">
-        <div class="time-slider-content-wrapper">
-          <div class="time-slider-content">
-            <div class="inline speed icon">
+        <p class="inline heading">Stopwatch</p>
+        <div class="stopwatch-content">
+          <div class="stopwatch-display">
+            <div class="display-text-wrapper">
+              <p id="stopwatch-value" class="display-text"></p>
             </div>
-            <p class="heading">Time Step</p>
-            <div class="stop">
-            </div>
-            <div class="slider-wrapper">
-              <div class="slider-content">
-                <input id="time-step" class="slider mousetrap" type="range" value="0" min="0" max="1000">
+            <p class="display-units">s</p>
+          </div>
+          <div class="stopwatch-buttons">
+            <div class="stopwatch-toggle-wrapper">
+              <div class="stopwatch-toggle">
               </div>
             </div>
-            <div class="slider-label-wrapper left">
-              <div class="slider-label-content">
-                <p class="slider-label">1</p>
-              </div>
-            </div>
-            <div class="slider-label-wrapper center">
-              <div class="slider-label-content">
-                <p class="slider-label">10</p>
-              </div>
-            </div>
-            <div class="slider-label-wrapper right">
-              <div class="slider-label-content">
-                <p class="slider-label">100</p>
+            <div class="stopwatch-reset-wrapper">
+              <div class="stopwatch-reset">
               </div>
             </div>
           </div>
         </div>
-        <!-- Stopwatch -->
-        <div class="stopwatch-content-wrapper">
-          <div class="inline stopwatch icon">
-          </div>
-          <p class="inline heading">Stopwatch</p>
-          <div class="stopwatch-content">
-            <div class="stopwatch-display">
-              <div class="display-text-wrapper">
-                <p class="display-text"></p>
-              </div>
-              <p class="display-units">s</p>
-            </div>
-            <div class="stopwatch-buttons">
-              <div class="stopwatch-toggle-wrapper">
-                <div class="stopwatch-toggle">
-                </div>
-              </div>
-              <div class="stopwatch-reset-wrapper">
-                <div class="stopwatch-reset">
-                </div>
-              </div>
-            </div>
-          </div>
+      </div>
+      <!-- Power Supply -->
+      <div class="power-content-wrapper">
+        <div class="inline power icon">
         </div>
-        <!-- Power Supply -->
-        <div class="power-content-wrapper">
-          <div class="inline power icon">
+        <p class="inline heading">Power Supply</p>
+        <div class="power-content">
+          <div class="slider-wrapper">
+            <div class="slider-content">
+              <input id="voltage" class="slider mousetrap" type="range" value="0" min="0" max="100000">
+            </div>
           </div>
-          <p class="inline heading">Power Supply</p>
-          <div class="power-content">
-            <div class="slider-wrapper">
-              <div class="slider-content">
-                <input id="voltage" class="slider mousetrap" type="range" value="0" min="0" max="100000">
-              </div>
+          <div class="slider-label-wrapper left">
+            <div class="slider-label-content">
+              <p class="slider-label no-select">0</p>
             </div>
-            <div class="slider-label-wrapper left">
-              <div class="slider-label-content">
-                <p class="slider-label no-select">0</p>
-              </div>
+          </div>
+          <div class="slider-label-wrapper center">
+            <div class="slider-label-content">
+              <p class="slider-label no-select">Voltage</p>
             </div>
-            <div class="slider-label-wrapper center">
-              <div class="slider-label-content">
-                <p class="slider-label no-select">Voltage</p>
-              </div>
+          </div>
+          <div class="slider-label-wrapper right">
+            <div class="slider-label-content">
+              <p class="slider-label no-select">1000</p>
             </div>
-            <div class="slider-label-wrapper right">
-              <div class="slider-label-content">
-                <p class="slider-label no-select">1000</p>
-              </div>
+          </div>
+          <br>
+          <div class="voltage-reading">
+            <div class="voltage-display-text-wrapper">
+              <p id="voltage-value" class="voltage-display-text value-display">0</p>
             </div>
-            <br>
-            <div class="voltage-reading">
-              <div class="voltage-display-text-wrapper">
-                <p class="voltage-display-text">0</p>
-              </div>
-              <p class="voltage-display-units">v</p>
-            </div>
-            <div id="voltage-toggle" class="button-wrapper">
-              <div class="button-content">
-                <div class="button-icon-wrapper">
-                  <div class="button-icon">
+            <p class="voltage-display-units unit-display ">v</p>
+          </div>
+          <div id="voltage-toggle" class="button-wrapper">
+            <div class="button-content">
+              <div class="button-icon-wrapper">
+                <div class="button-icon">
 
+                </div>
+              </div>
+              <p class="button-name">Power</p>
+            </div>
+          </div>
+          <div id="polarity-toggle" class="button-wrapper">
+            <div class="button-content">
+              <div class="button-icon-wrapper">
+                <div class="button-icon">
+
+                </div>
+              </div>
+              <p class="button-name">Polarity</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Distance -->
+      <div class="distance-content-wrapper">
+        <div class="inline distance icon">
+        </div>
+        <p class="inline heading">Plate Separation</p>
+        <div class="distance-content">
+          <div class="slider-wrapper">
+            <div class="slider-content">
+              <input id="distance" class="slider mousetrap" type="range" value="25" min="15" max="35">
+            </div>
+          </div>
+          <div class="slider-label-wrapper left">
+            <div class="slider-label-content">
+              <p class="slider-label no-select">1.5</p>
+            </div>
+          </div>
+          <div class="slider-label-wrapper center">
+            <div class="slider-label-content">
+              <p class="slider-label no-select">Distance</p>
+            </div>
+          </div>
+          <div class="slider-label-wrapper right">
+            <div class="slider-label-content">
+              <p class="slider-label no-select">3.5</p>
+            </div>
+          </div>
+          <div class="distance-reading">
+            <p class="value-display inline">0</p>
+            <p class="unit-display inline">cm</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Sliding Right Pane -->
+    <div class="right-slide-pane">
+      <div class="right-slide-toggle-wrapper">
+        <div class="right-slide-toggle">
+          <div class="table-wrapper">
+            <table>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="right-hover-content-wrapper">
+          <div class="right-hover-content">
+            <div id="gConst" class="list-element">
+              <p class="list-title">Gravitational<br> Acceleration</p>
+              <p class="list-body constant selectable">hfsudihfj</p>
+              <p class="list-body selectable">m/s<sup>2</sup></p>
+            </div>
+            <div id="pConst-oil" class="list-element">
+              <p class="list-title">Density of Oil</p>
+              <p class="list-body constant selectable"></p>
+              <p class="list-body selectable">kg/m<sup>3</sup></p>
+            </div>
+            <div id="pConst-air" class="list-element">
+              <p class="list-title">Density of Air</p>
+              <p class="list-body constant selectable"></p>
+              <p class="list-body selectable">kg/m<sup>3</sup></p>
+            </div>
+            <div id="nConst" class="list-element">
+              <p class="list-title">Permeability of <br>Free Space</p>
+              <p class="list-body constant selectable"></p>
+              <p class="list-body selectable">kg/(m·s)</p>
+            </div>
+            <div class="list-element">
+              <p class="list-title">Tune Voltage</p>
+              <p class="list-body">Fine: Left</p>
+              <br>
+              <p class="list-body">Coarse: Ctrl+Left</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-slide-content-wrapper">
+        <div class="right-slide-content">
+          <div class="trial-pane-header-wrapper">
+            <p class="heading">Saved Runs</p>
+            <p class="disclaimer">Values below have been rounded</p>
+            <div class="export-trials-content-wrapper">
+              <div class="export-button-wrapper">
+                <div class="export-button">
+                  <div class="export-icon">
                   </div>
                 </div>
-                <p class="button-name">Power</p>
+              </div>
+              <div class="text-wrapper">
+                <p>Export</p>
               </div>
             </div>
-            <div id="polarity-toggle" class="button-wrapper">
-              <div class="button-content">
-                <div class="button-icon-wrapper">
-                  <div class="button-icon">
+          </div>
+          <div class="trial-header-menu">
+            <p>Number</p>
+            <p>E-Field</p>
+            <p>Time</p>
+            <p>Distance</p>
+          </div>
+          <div class="trial-entries">
+            <div class="trial-entry defaultConstructor">
+              <p class="number"></p>
+              <p class="eField"></p>
+              <p class="time"></p>
+              <p class="distance"></p>
+              <div class="remove-trial-wrapper">
+                <div class="remove-trial">
+                  <div class="remove-trial-button-wrapper">
+                    <div class="remove-trial-button">
 
-                  </div>
-                </div>
-                <p class="button-name">Polarity</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="new-drop" class="button-wrapper">
-          <div class="button-content">
-            <p class="button-name"> Add Droplet</p>
-          </div>
-        </div>
-      </div>
-      <!-- Sliding Right Pane -->
-      <div class="right-slide-pane">
-        <div class="right-slide-toggle-wrapper">
-          <div class="right-slide-toggle">
-            <div class="table-wrapper">
-              <table>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </table>
-            </div>
-          </div>
-          <div class="right-hover-content-wrapper">
-            <div class="right-hover-content">
-              <div id="gConst" class="list-element">
-                <p class="list-title">Gravitational<br> Acceleration</p>
-                <p class="list-body constant selectable">hfsudihfj</p>
-                <p class="list-body selectable">m/s<sup>2</sup></p>
-              </div>
-              <div id="pConst-oil" class="list-element">
-                <p class="list-title">Density of Oil</p>
-                <p class="list-body constant selectable"></p>
-                <p class="list-body selectable">kg/m<sup>3</sup></p>
-              </div>
-              <div id="pConst-air" class="list-element">
-                <p class="list-title">Density of Air</p>
-                <p class="list-body constant selectable"></p>
-                <p class="list-body selectable">kg/m<sup>3</sup></p>
-              </div>
-              <div id="nConst" class="list-element">
-                <p class="list-title">Permeability of <br>Free Space</p>
-                <p class="list-body constant selectable"></p>
-                <p class="list-body selectable">kg/(m·s)</p>
-              </div>
-              <div class="list-element">
-                <p class="list-title">Tune Voltage</p>
-                <p class="list-body">Fine: Left</p>
-                <br>
-                <p class="list-body">Coarse: Ctrl+Left</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="right-slide-content-wrapper">
-          <div class="right-slide-content">
-            <div class="trial-pane-header-wrapper">
-              <p class="heading">Saved Runs</p>
-              <p class="disclaimer">Values below have been rounded</p>
-              <div class="export-trials-content-wrapper">
-                <div class="export-button-wrapper">
-                  <div class="export-button">
-                    <div class="export-icon">
                     </div>
                   </div>
+                  <p class="hover-show">Delete?</p>
                 </div>
-                <div class="text-wrapper">
-                  <p>Export</p>
-                </div>
-              </div>
-            </div>
-            <div class="trial-header-menu">
-              <p>Number</p>
-              <p>E-Field</p>
-              <p>Time</p>
-              <p>Distance</p>
-            </div>
-            <div class="trial-entries">
-              <div class="trial-entry defaultConstructor">
-                <p class="number"></p>
-                <p class="eField"></p>
-                <p class="time"></p>
-                <p class="distance"></p>
-                <div class="remove-trial-wrapper">
-                  <div class="remove-trial">
-                    <div class="remove-trial-button-wrapper">
-                      <div class="remove-trial-button">
-
-                      </div>
-                    </div>
-                    <p class="hover-show">Delete?</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="trial-footer-wrapper">
-              <div class="trial-footer">
-                <!-- <p class="trial-export ">Export Entries</p> -->
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <script type="text/javascript">
-      require('./renderer-main.js');
-    </script>
+  </div>
+  <script type="text/javascript">
+    require('./renderer-main.js');
+  </script>
 
 </body>
 

@@ -76,23 +76,10 @@
   display: inline-block;
 }
 
-.voltage-reading p {
-  margin: 0;
-  color: var(--main-accent-color);
-}
-
 .voltage-display-text-wrapper {
   width: 90%;
 }
 
 .voltage-reading .voltage-display-text {
-  font-size: 27px;
-  transform: translateY(-2px);
   float: right;
-}
-
-.voltage-reading .voltage-display-units {
-  font-size: 24px;
-  position: absolute;
-  transform: translate(2px, 1px);
 }
