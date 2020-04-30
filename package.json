@@ -16,7 +16,7 @@
     "electron-json-storage": "^4.1.6",
     "electron-reload": "^1.4.0",
     "framesync": "^4.0.4",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "mathjs": "^5.10.3",
     "mousetrap": "^1.6.3"
   },
