@@ -21,7 +21,7 @@
     "mousetrap": "^1.6.3"
   },
   "devDependencies": {
-    "electron": "^5.0.6",
+    "electron": "^13.6.6",
     "electron-packager": "^13.1.1"
   },
   "build": {
